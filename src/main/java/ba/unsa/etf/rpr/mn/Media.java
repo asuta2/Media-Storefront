@@ -4,6 +4,6 @@ public class Media {
     private int idMedia;
     private String mediaName;
     private String mediaCreator;
-    int typeId;
+    private int typeId;
 
 }
