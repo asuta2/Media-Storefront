@@ -5,6 +5,22 @@ public class Media {
     private String mediaName;
     private String mediaCreator;
 
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+    }
+
+    public void setMediaCreator(String mediaCreator) {
+        this.mediaCreator = mediaCreator;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public void setIdMedia(int idMedia) {
+        this.idMedia = idMedia;
+    }
+
     public int getIdMedia() {
         return idMedia;
     }
