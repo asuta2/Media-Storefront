@@ -4,6 +4,7 @@ public class Media {
     private int idMedia;
     private String mediaName;
     private String mediaCreator;
+    private int typeId;
 
     public void setMediaName(String mediaName) {
         this.mediaName = mediaName;
@@ -37,6 +38,6 @@ public class Media {
         return typeId;
     }
 
-    private int typeId;
+
 
 }
