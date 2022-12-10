@@ -23,6 +23,27 @@ public class borrowsDaoImpl implements borrowsDao{
 
     @Override
     public borrows getById(int id) {
+        String upit = "SELECT * FROM borrows WHERE borrowsId = ?";
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next())
+            {
+                borrows bb = new borrows();
+                bb.setBorrowsId(rs.getInt("borrowsId"));
+                bb.setBroughtDate(rs.getDate("broughtDate"));
+                bb.setTakeDate(rs.getDate("broughtDate"));
+                bb.setMediaId(rs.getInt("mediaId"));
+                bb.setUserId(rs.getInt("userId"));
+                rs.close();
+                return bb;
+            }
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
@@ -64,6 +85,7 @@ public class borrowsDaoImpl implements borrowsDao{
                 bb.setUserId(rs.getInt("userId"));
                 ispis.add(bb);
             }
+            rs.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
