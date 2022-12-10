@@ -3,10 +3,8 @@ package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.mn.Users;
 
 import javax.swing.plaf.nimbus.State;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersDaoSQLImpl implements UsersDao{
@@ -64,6 +62,24 @@ public class UsersDaoSQLImpl implements UsersDao{
 
     @Override
     public List<Users> getAll() {
-        return null;
+        String upit = "SELECT * FROM Users";
+        List<Users> ispis = new ArrayList<Users>();
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                Users user = new Users();
+                user.setIdUsers(rs.getInt("idUsers"));
+                user.setUsername(rs.getString("Username"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                ispis.add(user);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ispis;
     }
 }
