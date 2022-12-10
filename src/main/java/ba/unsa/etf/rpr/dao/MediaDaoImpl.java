@@ -42,6 +42,39 @@ public class MediaDaoImpl implements MediaDao{
     }
 
     @Override
+    public List<Media> getMediaByTypeAsc(int id) {
+        String upit = "SELECT * FROM Media WHERE typeId = ? order by mediaName asc";
+        return getMedia(upit);
+    }
+
+    @Override
+    public List<Media> getMediaByTypeDesc(int id) {
+        String upit = "SELECT * FROM Media WHERE typeId = ? order by mediaName desc";
+        return getMedia(upit);
+    }
+
+    private List<Media> getMedia(String upit) {
+        List<Media> ispis = new ArrayList<Media>();
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next())
+            {
+                Media mm = new Media();
+                mm.setTypeId(rs.getInt("typeId"));
+                mm.setIdMedia(rs.getInt("idMedia"));
+                mm.setMediaCreator(rs.getString("mediaCreator"));
+                mm.setMediaName(rs.getString("mediaName"));
+                ispis.add(mm);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return ispis;
+    }
+
+    @Override
     public List<Media> getAll() {
         String upit = "SELECT * FROM Media";
         List<Media> ispis = new ArrayList<Media>();
