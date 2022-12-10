@@ -53,8 +53,20 @@ public class MediaDaoImpl implements MediaDao{
         return getMedia(upit);
     }
 
+    @Override
+    public List<Media> getMediaAsc() {
+        String upit = "SELECT * FROM Media order by mediaName asc";
+        return getMedia(upit);
+    }
+
+    @Override
+    public List<Media> getMediaDesc() {
+        String upit = "SELECT * FROM Media order by mediaName asc";
+        return getMedia(upit);
+    }
+
     private List<Media> getMedia(String upit) {
-        List<Media> ispis = new ArrayList<Media>();
+        List<Media> ispis = new ArrayList<>();
         try{
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             ResultSet rs = stmt.executeQuery();
@@ -77,7 +89,7 @@ public class MediaDaoImpl implements MediaDao{
     @Override
     public List<Media> getAll() {
         String upit = "SELECT * FROM Media";
-        List<Media> ispis = new ArrayList<Media>();
+        List<Media> ispis = new ArrayList<>();
         try{
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             ResultSet rs = stmt.executeQuery();
