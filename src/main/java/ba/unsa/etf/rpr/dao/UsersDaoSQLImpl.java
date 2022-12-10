@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.mn.Users;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -50,7 +51,15 @@ public class UsersDaoSQLImpl implements UsersDao{
 
     @Override
     public void delete(int id) {
+        String upit = "DELETE FROM Users where id = ?";
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
