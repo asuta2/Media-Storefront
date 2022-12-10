@@ -51,7 +51,7 @@ public class UsersDaoSQLImpl implements UsersDao{
 
     @Override
     public void delete(int id) {
-        String upit = "DELETE FROM Users where id = ?";
+        String upit = "DELETE FROM Users where idUsers = ?";
         try{
             PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1,id);
