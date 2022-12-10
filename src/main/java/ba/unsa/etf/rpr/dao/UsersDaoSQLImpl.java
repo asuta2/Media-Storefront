@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.mn.Users;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,26 @@ public class UsersDaoSQLImpl implements UsersDao{
 
     @Override
     public Users getById(int id) {
-        return null;
+        String upit = "Select * from Users where idUsers = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next())
+            {
+                Users user = new Users();
+                user.setIdUsers(rs.getInt("idUsers"));
+                user.setUsername(rs.getString("Username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                rs.close();
+                return user;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
