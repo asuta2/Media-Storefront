@@ -38,7 +38,15 @@ public class MediaDaoImpl implements MediaDao{
 
     @Override
     public void delete(int id) {
+        String upit = "DELETE FROM Media where idMedia = ?";
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -96,24 +104,6 @@ public class MediaDaoImpl implements MediaDao{
     @Override
     public List<Media> getAll() {
         String upit = "SELECT * FROM Media";
-        List<Media> ispis = new ArrayList<>();
-        try{
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next())
-            {
-                Media mid = new Media();
-
-                mid.setIdMedia(rs.getInt("idMedia"));
-                mid.setMediaName(rs.getString("mediaName"));
-                mid.setMediaCreator(rs.getString("mediaCreator"));
-                mid.setTypeId(rs.getInt("typeId"));
-                ispis.add(mid);
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ispis;
+        return getMedia(upit);
     }
 }
