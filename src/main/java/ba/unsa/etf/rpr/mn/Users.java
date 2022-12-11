@@ -4,11 +4,18 @@ public class Users {
     private int idUsers;
 
     private String username;
-
-
-
     private String email;
     private String password;
+    private String PrivilegeLevel;
+
+    public String getPrivilegeLevel() {
+        return PrivilegeLevel;
+    }
+
+    public void setPrivilegeLevel(String privilegeLevel) {
+        PrivilegeLevel = privilegeLevel;
+    }
+
     public String getUsername() {
         return username;
     }
