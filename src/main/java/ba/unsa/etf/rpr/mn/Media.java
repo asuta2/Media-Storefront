@@ -6,6 +6,16 @@ public class Media {
     private String mediaCreator;
     private int typeId;
 
+    private Double Sales_pct;
+
+    public Double getSales_pct() {
+        return Sales_pct;
+    }
+
+    public void setSales_pct(Double sales_pct) {
+        Sales_pct = sales_pct;
+    }
+
     public void setMediaName(String mediaName) {
         this.mediaName = mediaName;
     }
