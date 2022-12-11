@@ -65,6 +65,12 @@ public class MediaDaoImpl implements MediaDao{
         return getMedia(upit);
     }
 
+    @Override
+    public List<Media> getMediaOnSale() {
+        String upit = "SELECT * FROM Media WHERE Sales_pct IS NOT NULL";
+        return getMedia(upit);
+    }
+
     private List<Media> getMedia(String upit) {
         List<Media> ispis = new ArrayList<>();
         try{
@@ -77,6 +83,7 @@ public class MediaDaoImpl implements MediaDao{
                 mm.setIdMedia(rs.getInt("idMedia"));
                 mm.setMediaCreator(rs.getString("mediaCreator"));
                 mm.setMediaName(rs.getString("mediaName"));
+                mm.setSales_pct(rs.getDouble("Sales_pct"));
                 ispis.add(mm);
             }
             rs.close();
