@@ -12,6 +12,9 @@ public class Media implements Serializable {
     private Double Price;
     private String Description;
 
+    public Media() {
+    }
+
     public Double getPrice() {
         return Price;
     }
