@@ -1,13 +1,16 @@
 package ba.unsa.etf.rpr.mn;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class borrows {
+public class borrows implements Serializable {
     private int borrowsId;
     private int userId;
     private int mediaId;
     private Date takeDate;
     private Date broughtDate;
+
+    public borrows() {}
 
     public int getBorrowsId() {
         return borrowsId;
