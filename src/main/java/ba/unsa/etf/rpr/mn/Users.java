@@ -1,16 +1,31 @@
 package ba.unsa.etf.rpr.mn;
 
-import java.io.Serializable;
+import java.util.Date;
 
-public class Users implements Serializable {
+public class Users {
     private int idUsers;
 
     private String username;
     private String email;
     private String password;
     private String PrivilegeLevel;
+    private Double Balance;
+    private java.sql.Date BirthDate;
 
-    public Users() {
+    public java.sql.Date getBirthDate() {
+        return BirthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        BirthDate = (java.sql.Date) birthDate;
+    }
+
+    public Double getBalance() {
+        return Balance;
+    }
+
+    public void setBalance(Double balance) {
+        Balance = balance;
     }
 
     public String getPrivilegeLevel() {
