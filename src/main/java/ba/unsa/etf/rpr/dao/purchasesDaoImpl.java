@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.mn.borrows;
+import ba.unsa.etf.rpr.mn.Purchases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,9 +11,9 @@ import java.util.List;
 
 import static ba.unsa.etf.rpr.dao.UsersDaoSQLImpl.*;
 
-public class borrowsDaoImpl implements borrowsDao{
+public class purchasesDaoImpl implements PurchasesDao {
     private Connection conn;
-    public borrowsDaoImpl() {
+    public purchasesDaoImpl() {
         try{
             this.conn = DriverManager.getConnection(DB_URL,USER,PASS);
         } catch (Exception e) {
@@ -22,7 +22,7 @@ public class borrowsDaoImpl implements borrowsDao{
     }
 
     @Override
-    public borrows getById(int id) {
+    public Purchases getById(int id) {
         String upit = "SELECT * FROM borrows WHERE borrowsId = ?";
         try{
             PreparedStatement stmt = this.conn.prepareStatement(upit);
@@ -30,10 +30,9 @@ public class borrowsDaoImpl implements borrowsDao{
             ResultSet rs = stmt.executeQuery();
             if (rs.next())
             {
-                borrows bb = new borrows();
-                bb.setBorrowsId(rs.getInt("borrowsId"));
-                bb.setBroughtDate(rs.getDate("broughtDate"));
-                bb.setTakeDate(rs.getDate("broughtDate"));
+                Purchases bb = new Purchases();
+                bb.setPurchasesId(rs.getInt("borrowsId"));
+                bb.setBoughtDate(rs.getDate("boughtDate"));
                 bb.setMediaId(rs.getInt("mediaId"));
                 bb.setUserId(rs.getInt("userId"));
                 rs.close();
@@ -48,12 +47,12 @@ public class borrowsDaoImpl implements borrowsDao{
     }
 
     @Override
-    public borrows add(borrows item) {
+    public Purchases add(Purchases item) {
         return null;
     }
 
     @Override
-    public borrows update(borrows item) {
+    public Purchases update(Purchases item) {
         return null;
     }
 
@@ -63,24 +62,23 @@ public class borrowsDaoImpl implements borrowsDao{
     }
 
     @Override
-    public List<borrows> getAll() {
+    public List<Purchases> getAll() {
         return null;
     }
 
     @Override
-    public List<borrows> getAllBorrowsById(int id) {
+    public List<Purchases> getAllPurchasesById(int id) {
         String upit = "SELECT * FROM borrows WHERE borrowsId = ?";
-        List<borrows> ispis = new ArrayList<>();
+        List<Purchases> ispis = new ArrayList<>();
         try{
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             stmt.setInt(1,id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next())
             {
-                borrows bb = new borrows();
-                bb.setBorrowsId(rs.getInt("borrowsId"));
-                bb.setBroughtDate(rs.getDate("broughtDate"));
-                bb.setTakeDate(rs.getDate("broughtDate"));
+                Purchases bb = new Purchases();
+                bb.setPurchasesId(rs.getInt("borrowsId"));
+                bb.setBoughtDate(rs.getDate("boughtDate"));
                 bb.setMediaId(rs.getInt("mediaId"));
                 bb.setUserId(rs.getInt("userId"));
                 ispis.add(bb);
