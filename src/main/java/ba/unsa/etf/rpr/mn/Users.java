@@ -1,8 +1,9 @@
 package ba.unsa.etf.rpr.mn;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Users {
+public class Users implements Serializable {
     private int idUsers;
 
     private String username;
@@ -11,6 +12,9 @@ public class Users {
     private String PrivilegeLevel;
     private Double Balance;
     private java.sql.Date BirthDate;
+
+    public Users() {
+    }
 
     public java.sql.Date getBirthDate() {
         return BirthDate;
