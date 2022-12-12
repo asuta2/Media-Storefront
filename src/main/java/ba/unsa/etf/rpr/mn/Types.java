@@ -1,8 +1,13 @@
 package ba.unsa.etf.rpr.mn;
 
-public class Types {
+import java.io.Serializable;
+
+public class Types implements Serializable {
     private int idTypes;
     private String typeName;
+
+    public Types() {
+    }
 
     public int getIdTypes() {
         return idTypes;
