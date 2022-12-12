@@ -1,12 +1,17 @@
 package ba.unsa.etf.rpr.mn;
 
-public class Users {
+import java.io.Serializable;
+
+public class Users implements Serializable {
     private int idUsers;
 
     private String username;
     private String email;
     private String password;
     private String PrivilegeLevel;
+
+    public Users() {
+    }
 
     public String getPrivilegeLevel() {
         return PrivilegeLevel;
