@@ -1,8 +1,9 @@
 package ba.unsa.etf.rpr.mn;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Purchases {
+public class Purchases implements Serializable {
     private int purchasesId;
     private int userId;
     private int mediaId;
