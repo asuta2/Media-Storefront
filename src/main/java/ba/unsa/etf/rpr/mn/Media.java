@@ -9,6 +9,24 @@ public class Media implements Serializable {
     private int typeId;
 
     private Double Sales_pct;
+    private Double Price;
+    private String Description;
+
+    public Double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(Double price) {
+        Price = price;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 
     public Media() {
     }
@@ -16,7 +34,6 @@ public class Media implements Serializable {
     public Double getSales_pct() {
         return Sales_pct;
     }
-
     public void setSales_pct(Double sales_pct) {
         Sales_pct = sales_pct;
     }
