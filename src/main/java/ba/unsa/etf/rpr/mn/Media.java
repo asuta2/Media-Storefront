@@ -31,8 +31,6 @@ public class Media implements Serializable {
         Description = description;
     }
 
-    public Media() {
-    }
 
     public Double getSales_pct() {
         return Sales_pct;
