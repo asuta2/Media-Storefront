@@ -92,6 +92,8 @@ public class MediaDaoImpl implements MediaDao{
                 mm.setMediaCreator(rs.getString("mediaCreator"));
                 mm.setMediaName(rs.getString("mediaName"));
                 mm.setSales_pct(rs.getDouble("Sales_pct"));
+                mm.setPrice(rs.getDouble("price"));
+                mm.setDescription(rs.getString("mediaDescription"));
                 ispis.add(mm);
             }
             rs.close();
