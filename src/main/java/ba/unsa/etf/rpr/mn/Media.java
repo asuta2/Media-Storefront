@@ -1,12 +1,17 @@
 package ba.unsa.etf.rpr.mn;
 
-public class Media {
+import java.io.Serializable;
+
+public class Media implements Serializable {
     private int idMedia;
     private String mediaName;
     private String mediaCreator;
     private int typeId;
 
     private Double Sales_pct;
+
+    public Media() {
+    }
 
     public Double getSales_pct() {
         return Sales_pct;
