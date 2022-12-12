@@ -7,7 +7,6 @@ public class Media implements Serializable {
     private String mediaName;
     private String mediaCreator;
     private int typeId;
-
     private Double Sales_pct;
     private Double Price;
     private String Description;
