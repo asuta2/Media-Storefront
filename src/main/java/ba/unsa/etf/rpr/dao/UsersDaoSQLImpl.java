@@ -88,7 +88,7 @@ public class UsersDaoSQLImpl implements UsersDao{
     @Override
     public List<Users> getAll() {
         String upit = "SELECT * FROM Users";
-        List<Users> ispis = new ArrayList<Users>();
+        List<Users> ispis = new ArrayList<>();
         try{
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             ResultSet rs = stmt.executeQuery();
