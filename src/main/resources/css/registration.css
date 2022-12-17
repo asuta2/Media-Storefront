@@ -40,3 +40,13 @@
     -fx-font-family: 'Roboto', sans-serif;
     -fx-font-weight: bold;
 }
+.errorCode{
+    -fx-border-color: #C15755;
+}
+.successCode{
+    -fx-border-color: #3e8e41;
+    -fx-border-width: 2px;
+}
+#errorLabel1,#errorLabel2,#errorLabel3,#errorLabel4{
+    -fx-text-fill: #C15755;
+}
