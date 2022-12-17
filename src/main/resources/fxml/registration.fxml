@@ -30,9 +30,17 @@
       </Label>
       <TextField fx:id="usernameField" prefHeight="31.0">
          <VBox.margin>
-            <Insets bottom="35.0" left="35.0" right="200.0" />
+            <Insets bottom="10.0" left="35.0" right="200.0" />
          </VBox.margin>
       </TextField>
+      <Label fx:id="errorLabel1">
+         <padding>
+            <Insets left="35.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
       <Label text="Email Address">
          <padding>
             <Insets left="35.0" />
@@ -43,9 +51,17 @@
       </Label>
       <TextField fx:id="emailField" prefHeight="31.0">
          <VBox.margin>
-            <Insets bottom="35.0" left="35.0" right="200.0" />
+            <Insets bottom="10.0" left="35.0" right="200.0" />
          </VBox.margin>
       </TextField>
+      <Label fx:id="errorLabel2">
+         <padding>
+            <Insets left="35.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
       <Label text="Confirm Your Address">
          <padding>
             <Insets left="35.0" />
@@ -56,9 +72,17 @@
       </Label>
       <TextField fx:id="emailConfirmField" prefHeight="31.0">
          <VBox.margin>
-            <Insets bottom="35.0" left="35.0" right="200.0" />
+            <Insets bottom="10.0" left="35.0" right="200.0" />
          </VBox.margin>
       </TextField>
+      <Label fx:id="errorLabel3">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="35.0" />
+         </padding>
+      </Label>
       <Label text="Password">
          <padding>
             <Insets left="35.0" />
@@ -67,17 +91,25 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </Label>
-      <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="263.0">
+      <PasswordField fx:id="pass" prefHeight="31.0" prefWidth="263.0">
          <VBox.margin>
-            <Insets bottom="35.0" left="35.0" right="200.0" />
+            <Insets bottom="10.0" left="35.0" right="200.0" />
          </VBox.margin>
       </PasswordField>
+      <Label fx:id="errorLabel4">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="35.0" />
+         </padding>
+      </Label>
       <CheckBox fx:id="check" mnemonicParsing="false" prefWidth="463.0" text="I am 13 years of age or older and agree to the Terms of Service and the Privacy Policy." wrapText="true">
          <VBox.margin>
             <Insets left="35.0" />
          </VBox.margin>
       </CheckBox>
-      <Button fx:id="signupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="165.0" text="Sign Up">
+      <Button fx:id="signupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkRegistration" prefHeight="47.0" prefWidth="165.0" text="Sign Up">
          <VBox.margin>
             <Insets left="25.0" top="35.0" />
          </VBox.margin>
