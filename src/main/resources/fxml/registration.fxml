@@ -28,7 +28,7 @@
             <Insets bottom="5.0" left="35.0" />
          </padding>
       </Label>
-      <TextField prefHeight="31.0">
+      <TextField fx:id="usernameField" prefHeight="31.0">
          <VBox.margin>
             <Insets bottom="35.0" left="35.0" right="200.0" />
          </VBox.margin>
@@ -41,7 +41,7 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </Label>
-      <TextField prefHeight="31.0">
+      <TextField fx:id="emailField" prefHeight="31.0">
          <VBox.margin>
             <Insets bottom="35.0" left="35.0" right="200.0" />
          </VBox.margin>
@@ -54,7 +54,7 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </Label>
-      <TextField prefHeight="31.0">
+      <TextField fx:id="emailConfirmField" prefHeight="31.0">
          <VBox.margin>
             <Insets bottom="35.0" left="35.0" right="200.0" />
          </VBox.margin>
@@ -67,12 +67,12 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </Label>
-      <PasswordField prefHeight="31.0" prefWidth="263.0">
+      <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="263.0">
          <VBox.margin>
             <Insets bottom="35.0" left="35.0" right="200.0" />
          </VBox.margin>
       </PasswordField>
-      <CheckBox mnemonicParsing="false" prefWidth="463.0" text="I am 13 years of age or older and agree to the Terms of Service and the Privacy Policy." wrapText="true">
+      <CheckBox fx:id="check" mnemonicParsing="false" prefWidth="463.0" text="I am 13 years of age or older and agree to the Terms of Service and the Privacy Policy." wrapText="true">
          <VBox.margin>
             <Insets left="35.0" />
          </VBox.margin>
