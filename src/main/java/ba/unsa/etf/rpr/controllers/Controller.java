@@ -32,33 +32,34 @@ public class Controller  {
         //if hypelink is clicked then open register window
         if(actionEvent.getSource() == RegisterBtn){
             try {
+                Stage startStage = (Stage) RegisterBtn.getScene().getWindow();
+                startStage.hide();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/registration.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Register");
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
                 stage.show();
+                stage.setOnCloseRequest(e -> {
+                    e.consume();
+                    System.out.println("Closing registration");
+                    closeProgram(stage);
+                    startStage.show();
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         //if window is closed, go back to login window
-        else{
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Login");
-                stage.setScene(new Scene(root));
-                stage.setResizable(false);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
 
 
 
 
+
+    }
+
+    private void closeProgram(Stage stage) {
+        stage.close();
     }
 }
