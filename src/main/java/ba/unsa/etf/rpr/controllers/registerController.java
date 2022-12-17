@@ -2,12 +2,18 @@ package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.dao.UsersDao;
 import ba.unsa.etf.rpr.dao.UsersDaoSQLImpl;
+import ba.unsa.etf.rpr.mn.Users;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.regex.Pattern;
 
@@ -20,6 +26,7 @@ public class registerController {
     public Label errorLabel2;
     public Label errorLabel3;
     public Label errorLabel4;
+    public CheckBox checker;
     private final UsersDao usersDao = new UsersDaoSQLImpl();
     private SimpleStringProperty username;
     private SimpleStringProperty password;
@@ -117,7 +124,39 @@ public class registerController {
         });
     }
     public void checkRegistration(ActionEvent actionEvent) {
+        if(!checker.isSelected())
+        {
+            checker.getStyleClass().add("errorCode");
+            return;
+        }
+        else{
+            checker.getStyleClass().removeAll("errorCode");
+        }
+        if(usernameField.getStyleClass().contains("successCode") && pass.getStyleClass().contains("successCode") && emailField.getStyleClass().contains("successCode") && emailConfirmField.getStyleClass().contains("successCode") && checker.isSelected()){
+            Users temp = new Users();
+            temp.setEmail(emailField.getText());
+            temp.setUsername(usernameField.getText());
+            temp.setPassword(pass.getText());
+            temp.setPrivilegeLevel("user");
+            temp.setBalance(0.0);
+            usersDao.add(temp);
 
+            //close window and go back to login
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.close();
+            //temp solution
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+                Parent root = loader.load();
+                Stage stage1 = new Stage();
+                stage1.setTitle("Login");
+                stage1.setScene(new Scene(root));
+                stage1.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
     }
     public static boolean patternMatches(String emailAddress, String regexPattern) {
