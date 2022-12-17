@@ -55,6 +55,9 @@
 .errorCode{
     -fx-border-color: #C15755;
 }
+#errorLabel{
+    -fx-text-fill: #C15755;
+}
 
 
 
