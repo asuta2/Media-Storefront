@@ -8,21 +8,29 @@
     -fx-transition: 0.5s;
     -fx-background-size: 200% auto;
     -fx-color: white;
-    /*-fx-effect: dropshadow(gaussian, #eee, 20, 0.0, 0, 0);*/
-    /*-fx-drop-shadow: 0 0 20px #eee;*/
     -fx-border-radius: 10px;
     -fx-display: block;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-insets: 0,0,0,0,0;
 }
 
+
 #loginButton:hover {
-    -fx-background-insets: 0,0,0,0,0;
-    -fx-background-position: right center; /*change the direction of the change here*/
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-position: right center; /* change the direction of the change here */
     -fx-color: #fff;
     -fx-text-decoration: none;
 }
+.button:hover {
+    -fx-border-color: #3e8e41;
+    -fx-text-fill: #3e8e41;
+}
+#errorLabel{
+    -fx-text-fill: #C15755;
+
+}
+
 #mainWindow{
     -fx-background-color: linear-gradient(to top, #191A1E 0%, #212328 100%);
 }
@@ -41,6 +49,11 @@
     -fx-text-fill: white;
     -fx-font-family: 'Roboto', sans-serif;
     -fx-font-weight: bold;
+    -fx-resize: none;
+}
+
+.errorCode{
+    -fx-border-color: #C15755;
 }
 
 
