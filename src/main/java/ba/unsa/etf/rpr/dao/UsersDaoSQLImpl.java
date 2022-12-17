@@ -123,4 +123,18 @@ public class UsersDaoSQLImpl implements UsersDao {
         }
         return false;
     }
+
+    @Override
+    public boolean checkUsername(String username) {
+        String upit = "SELECT * FROM Users where Username = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
