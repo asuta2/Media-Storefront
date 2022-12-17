@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.dao.UsersDao;
+import ba.unsa.etf.rpr.dao.UsersDaoSQLImpl;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -52,10 +54,29 @@ public class Controller  {
             UsernameField.getStyleClass().add("errorCode");
             PasswordField.getStyleClass().add("errorCode");
         } else {
-            UsernameField.getStyleClass().remove("errorCode");
-            PasswordField.getStyleClass().remove("errorCode");
-            errorLabel.setText("");
-            System.out.println("Uspješno ste se prijavili!");
+            UsersDao usersDao = new UsersDaoSQLImpl();
+            if(usersDao.checkUser(UsernameField.getText(), PasswordField.getText())){
+                System.out.println("Uspjesno ste se prijavili!");
+                errorLabel.setText("You have successfully signed in.");
+                UsernameField.getStyleClass().remove("errorCode");
+                PasswordField.getStyleClass().remove("errorCode");
+                try {
+                    Stage stage = (Stage) loginButton.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+                    stage.setTitle("Workshop");
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Neispravni podaci!");
+                errorLabel.setText("Please check your password and account name and try again.");
+                UsernameField.getStyleClass().add("errorCode");
+                PasswordField.getStyleClass().add("errorCode");
+            }
         }
     }
 
