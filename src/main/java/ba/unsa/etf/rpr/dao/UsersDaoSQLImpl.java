@@ -33,7 +33,6 @@ public class UsersDaoSQLImpl implements UsersDao {
                 user.setUsername(rs.getString("Username"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
-                user.setBirthDate(rs.getDate("BirthDate"));
                 user.setBalance(rs.getDouble("Balance"));
                 user.setPrivilegeLevel(rs.getString("PrivilegeLevel"));
 
@@ -49,15 +48,14 @@ public class UsersDaoSQLImpl implements UsersDao {
 
     @Override
     public Users add(Users item) {
-        String upit = "INSERT INTO Users(email,password,Username,BirthDate,Balance,PPrivilegeLevel) VALUES(?,?,?,?,?,?)";
+        String upit = "INSERT INTO Users(email,password,Username,BirthDate,Balance,PPrivilegeLevel) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, item.getEmail());
             stmt.setString(2, item.getPassword());
             stmt.setString(3, item.getUsername());
-            stmt.setDate(4, item.getBirthDate());
-            stmt.setDouble(5, item.getBalance());
-            stmt.setString(6, item.getPrivilegeLevel());
+            stmt.setDouble(4, item.getBalance());
+            stmt.setString(5, item.getPrivilegeLevel());
             stmt.executeUpdate();
             return item;
         } catch (Exception e) {
@@ -97,7 +95,6 @@ public class UsersDaoSQLImpl implements UsersDao {
                 user.setUsername(rs.getString("Username"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setBirthDate(rs.getDate("BirthDate"));
                 user.setBalance(rs.getDouble("Balance"));
                 user.setPrivilegeLevel(rs.getString("PrivilegeLevel"));
                 ispis.add(user);

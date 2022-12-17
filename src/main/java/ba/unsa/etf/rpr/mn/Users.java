@@ -11,17 +11,8 @@ public class Users implements Serializable {
     private String password;
     private String PrivilegeLevel;
     private Double Balance;
-    private java.sql.Date BirthDate;
 
     public Users() {
-    }
-
-    public java.sql.Date getBirthDate() {
-        return BirthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        BirthDate = (java.sql.Date) birthDate;
     }
 
     public Double getBalance() {
