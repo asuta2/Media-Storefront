@@ -100,8 +100,10 @@ public class registerController {
                 }else if(!Pattern.matches("^[A-Za-z0-9+_.-]+@(.+)$", emailField.getText())){
                     emailField.getStyleClass().add("errorCode");
                     errorLabel2.setText("Email is not valid.");
-                }
-                else{
+                }else if(usersDao.checkEmail(emailField.getText())){
+                    emailField.getStyleClass().add("errorCode");
+                    errorLabel2.setText("Email is taken.");
+                }else{
                     emailField.getStyleClass().remove("errorCode");
                     emailField.getStyleClass().add("successCode");
                     errorLabel2.setText("");
