@@ -42,6 +42,7 @@
 }
 .errorCode{
     -fx-border-color: #C15755;
+    -fx-border-width: 2px;
 }
 .successCode{
     -fx-border-color: #3e8e41;
