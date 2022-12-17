@@ -127,14 +127,24 @@ public class UsersDaoSQLImpl implements UsersDao {
     @Override
     public boolean checkUsername(String username) {
         String upit = "SELECT * FROM Users where Username = ?";
+        return provjeraHelper(username, upit);
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        String upit = "SELECT * FROM Users where email = ?";
+        return provjeraHelper(email, upit);
+    }
+
+    private boolean provjeraHelper(String email, String upit) {
         try {
             PreparedStatement stmt = this.conn.prepareStatement(upit);
-            stmt.setString(1, username);
+            stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) return true;
         } catch (Exception e) {
             e.printStackTrace();
-        }
+    }
         return false;
     }
 }
