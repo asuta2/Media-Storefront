@@ -85,7 +85,7 @@ public class Controller  {
                 startStage.hide();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/registration.fxml"));
                 Stage stage = new Stage();
-                stage.setTitle("Register");
+                stage.setTitle("Registration");
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
                 stage.show();
@@ -99,12 +99,6 @@ public class Controller  {
                 e.printStackTrace();
             }
         }
-        //if window is closed, go back to login window
-
-
-
-
-
 
     }
 
