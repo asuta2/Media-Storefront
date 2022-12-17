@@ -48,7 +48,7 @@ public class UsersDaoSQLImpl implements UsersDao {
 
     @Override
     public Users add(Users item) {
-        String upit = "INSERT INTO Users(email,password,Username,BirthDate,Balance,PPrivilegeLevel) VALUES(?,?,?,?,?)";
+        String upit = "INSERT INTO Users(email,password,Username,Balance,PrivilegeLevel) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, item.getEmail());
