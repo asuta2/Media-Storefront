@@ -88,20 +88,24 @@ public class registerController {
         });
         emailField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(emailField.getText().length() > 50){
+                emailField.getStyleClass().removeAll("successCode");
                 emailField.getStyleClass().add("errorCode");
                 errorLabel2.setText("Email is too long.");
             }
             else if(emailField.getText().trim().isEmpty()){
+                emailField.getStyleClass().removeAll("successCode");
                 emailField.getStyleClass().add("errorCode");
                 errorLabel2.setText("Email is empty.");
             }else if(!patternMatches(emailField.getText(), "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")){
+                emailField.getStyleClass().removeAll("successCode");
                 emailField.getStyleClass().add("errorCode");
                 errorLabel2.setText("Email is not valid.");
             }else if(usersDao.checkEmail(emailField.getText())){
+                emailField.getStyleClass().removeAll("successCode");
                 emailField.getStyleClass().add("errorCode");
                 errorLabel2.setText("Email is taken.");
             }else{
-                emailField.getStyleClass().remove("errorCode");
+                emailField.getStyleClass().removeAll("errorCode");
                 emailField.getStyleClass().add("successCode");
                 errorLabel2.setText("");
             }
