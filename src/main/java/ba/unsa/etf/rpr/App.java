@@ -3,6 +3,11 @@ package ba.unsa.etf.rpr;
 import ba.unsa.etf.rpr.mn.Users;
 import ba.unsa.etf.rpr.dao.UsersDao;
 import ba.unsa.etf.rpr.dao.UsersDaoSQLImpl;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -10,22 +15,20 @@ import java.util.List;
  * Hello world!
  *
  */
-public class App 
+public class App extends Application
 {
     public static void main( String[] args )
     {
-        UsersDao dao = new UsersDaoSQLImpl();
-        Users test = new Users();
-        test.setUsername("Hasim");
-        test.setEmail("Hasim@hasim");
-        test.setPassword("Ne");
-        dao.add(test);
-        List<Users> owo=dao.getAll();
-        for(Users x: owo)
-        {
-            System.out.println(owo.get(0).getUsername());
-        }
+        launch(args);
+    }
 
-
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+        stage.setTitle("Login");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }
