@@ -5,16 +5,16 @@ import ba.unsa.etf.rpr.mn.Users;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class UsersDaoSQLImpl implements UsersDao {
     private Connection conn;
-    static final String DB_URL = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7583670";
-    static final String USER = "sql7583670";
-    static final String PASS = "KVxzvQ1ssg";
 
     public UsersDaoSQLImpl() {
         try {
-            this.conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Properties p = new Properties();
+            p.load(ClassLoader.getSystemResource("conn.properties").openStream());
+            this.conn = DriverManager.getConnection(p.getProperty("db_url"), p.getProperty("username"), p.getProperty("password"));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -8,14 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
-import static ba.unsa.etf.rpr.dao.UsersDaoSQLImpl.*;
 
 public class purchasesDaoImpl implements PurchasesDao {
     private Connection conn;
     public purchasesDaoImpl() {
         try{
-            this.conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            Properties p = new Properties();
+            p.load(ClassLoader.getSystemResource("conn.properties").openStream());
+            conn = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
