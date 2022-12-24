@@ -2,32 +2,27 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.mn.Types;
 
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
-public class TypesDaoSQLImpl implements TypesDao {
+public class TypesDaoSQLImpl extends AbstractDao<Types> implements TypesDao {
+
+    public TypesDaoSQLImpl() {
+        super("Types");
+    }
+
+
 
     @Override
-    public Types getById(int id) {
+    public Map<String, Object> object2row(Types object) {
         return null;
     }
 
     @Override
-    public Types add(Types item) {
+    public Types row2object(ResultSet rs) {
         return null;
     }
 
-    @Override
-    public Types update(Types item) {
-        return null;
-    }
 
-    @Override
-    public void delete(int id) {
-
-    }
-
-    @Override
-    public List<Types> getAll() {
-        return null;
-    }
 }
