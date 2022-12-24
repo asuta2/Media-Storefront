@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
-    private Connection conn;
+    //private Connection conn;
 
     public UsersDaoSQLImpl() {
         super("Users");
@@ -30,7 +30,7 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
     public boolean checkUser(String email, String password) {
         String upit = "SELECT * FROM Users where email = ? and password = ?";
         try {
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            PreparedStatement stmt = getConnection().prepareStatement(upit);
             stmt.setString(1, email);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
@@ -55,7 +55,7 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     private boolean provjeraHelper(String email, String upit) {
         try {
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            PreparedStatement stmt = getConnection().prepareStatement(upit);
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) return true;
