@@ -5,106 +5,26 @@ import ba.unsa.etf.rpr.mn.Users;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-public class UsersDaoSQLImpl implements UsersDao {
+public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
     private Connection conn;
 
     public UsersDaoSQLImpl() {
-        try {
-            Properties p = new Properties();
-            p.load(ClassLoader.getSystemResource("conn.properties").openStream());
-            this.conn = DriverManager.getConnection(p.getProperty("db_url"), p.getProperty("username"), p.getProperty("password"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        super("Users");
     }
 
     @Override
-    public Users getById(int id) {
-        String upit = "Select * from Users where idUsers = ?";
-        try {
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Users user = new Users();
-                user.setIdUsers(rs.getInt("idUsers"));
-                user.setUsername(rs.getString("Username"));
-                user.setPassword(rs.getString("password"));
-                user.setEmail(rs.getString("email"));
-                user.setBalance(rs.getDouble("Balance"));
-                user.setPrivilegeLevel(rs.getString("PrivilegeLevel"));
-
-                rs.close();
-                return user;
-            }
-            return null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
-    public Users add(Users item) {
-        String upit = "INSERT INTO Users(email,password,Username,Balance,PrivilegeLevel) VALUES(?,?,?,?,?)";
-        try {
-            PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, item.getEmail());
-            stmt.setString(2, item.getPassword());
-            stmt.setString(3, item.getUsername());
-            stmt.setDouble(4, item.getBalance());
-            stmt.setString(5, item.getPrivilegeLevel());
-            stmt.executeUpdate();
-            return item;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Map<String, Object> object2row(Users object) {
         return null;
     }
 
     @Override
-    public Users update(Users item) {
+    public Users row2object(ResultSet rs) {
         return null;
     }
 
-    @Override
-    public void delete(int id) {
-        String upit = "DELETE FROM Users where idUsers = ?";
-        try {
-            PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<Users> getAll() {
-        String upit = "SELECT * FROM Users";
-        List<Users> ispis = new ArrayList<>();
-        try {
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Users user = new Users();
-                user.setIdUsers(rs.getInt("idUsers"));
-                user.setUsername(rs.getString("Username"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setBalance(rs.getDouble("Balance"));
-                user.setPrivilegeLevel(rs.getString("PrivilegeLevel"));
-                ispis.add(user);
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ispis;
-    }
 
     @Override
     public boolean checkUser(String email, String password) {
