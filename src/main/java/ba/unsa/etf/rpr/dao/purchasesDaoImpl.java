@@ -8,87 +8,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 
-public class purchasesDaoImpl implements PurchasesDao {
+public class purchasesDaoImpl extends AbstractDao<Purchases>implements PurchasesDao {
     private Connection conn;
     public purchasesDaoImpl() {
-        try{
-            Properties p = new Properties();
-            p.load(ClassLoader.getSystemResource("conn.properties").openStream());
-            conn = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        super("Purchases");
     }
 
+
+
     @Override
-    public Purchases getById(int id) {
-        String upit = "SELECT * FROM borrows WHERE borrowsId = ?";
-        try{
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
-            stmt.setInt(1,id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next())
-            {
-                Purchases bb = new Purchases();
-                bb.setPurchasesId(rs.getInt("borrowsId"));
-                bb.setBoughtDate(rs.getDate("boughtDate"));
-                bb.setMediaId(rs.getInt("mediaId"));
-                bb.setUserId(rs.getInt("userId"));
-                rs.close();
-                return bb;
-            }
-
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public Map<String, Object> object2row(Purchases object) {
         return null;
     }
 
     @Override
-    public Purchases add(Purchases item) {
-        return null;
-    }
-
-    @Override
-    public Purchases update(Purchases item) {
-        return null;
-    }
-
-    @Override
-    public void delete(int id) {
-
-    }
-
-    @Override
-    public List<Purchases> getAll() {
+    public Purchases row2object(ResultSet rs) {
         return null;
     }
 
     @Override
     public List<Purchases> getAllPurchasesById(int id) {
-        String upit = "SELECT * FROM borrows WHERE borrowsId = ?";
-        List<Purchases> ispis = new ArrayList<>();
-        try{
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
-            stmt.setInt(1,id);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next())
-            {
-                Purchases bb = new Purchases();
-                bb.setPurchasesId(rs.getInt("borrowsId"));
-                bb.setBoughtDate(rs.getDate("boughtDate"));
-                bb.setMediaId(rs.getInt("mediaId"));
-                bb.setUserId(rs.getInt("userId"));
-                ispis.add(bb);
-            }
-            rs.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return ispis;
+       //gets all purchases from a user
+        return executeQuery("SELECT * FROM Purchases WHERE idUser = " + id,new Object[] {id});
     }
 }
