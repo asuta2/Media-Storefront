@@ -3,24 +3,15 @@ package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.mn.Media;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 
-public class MediaDaoImpl implements MediaDao{
+public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
     private Connection conn;
 
 
     public MediaDaoImpl() {
-
-        try {
-            Properties p = new Properties();
-            p.load(ClassLoader.getSystemResource("conn.properties").openStream());
-            conn = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        super("Media");
     }
 
     @Override
@@ -29,56 +20,60 @@ public class MediaDaoImpl implements MediaDao{
     }
 
     @Override
-    public Media add(Media item) {
-        return null;
+    public Map<String, Object> object2row(Media object) {
+        Map<String, Object> row = new TreeMap<>();
+        row.put("idMedia", object.getIdMedia());
+        row.put("mediaName", object.getMediaName());
+        row.put("mediaCreator", object.getMediaCreator());
+        row.put("typeId", object.getTypeId());
+        row.put("Sales_pct", object.getSales_pct());
+        row.put("Price", object.getPrice());
+        row.put("Description", object.getDescription());
+        return row;
     }
 
     @Override
-    public Media update(Media item) {
-        return null;
-    }
-
-    @Override
-    public void delete(int id) {
-        String upit = "DELETE FROM Media where idMedia = ?";
-        try{
-            PreparedStatement stmt = this.conn.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1,id);
-            stmt.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Media row2object(ResultSet rs) {
+        try {
+            Media cat = new Media();
+            cat.setIdMedia(rs.getInt("idMedia"));
+            cat.setMediaName(rs.getString("mediaName"));
+            cat.setMediaCreator(rs.getString("mediaCreator"));
+            cat.setTypeId(rs.getInt("typeId"));
+            cat.setSales_pct(rs.getDouble("Sales_pct"));
+            cat.setPrice(rs.getDouble("Price"));
+            cat.setDescription(rs.getString("Description"));
+            return cat;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
+
     @Override
     public List<Media> getMediaByTypeAsc(int id) {
-        String upit = "SELECT * FROM Media WHERE typeId = ? order by mediaName asc";
-        return getMedia(upit);
+        return executeQuery("SELECT * FROM Media WHERE typeId = ? ORDER BY mediaName ASC", new Object[]{id});
+
     }
 
     @Override
     public List<Media> getMediaByTypeDesc(int id) {
-        String upit = "SELECT * FROM Media WHERE typeId = ? order by mediaName desc";
-        return getMedia(upit);
+        return executeQuery("SELECT * FROM Media WHERE typeId = ? ORDER BY mediaName DESC", new Object[]{id});
     }
 
     @Override
     public List<Media> getMediaAsc() {
-        String upit = "SELECT * FROM Media order by mediaName asc";
-        return getMedia(upit);
+        return executeQuery("SELECT * FROM Media ORDER BY mediaName ASC", new Object[]{});
     }
 
     @Override
     public List<Media> getMediaDesc() {
-        String upit = "SELECT * FROM Media order by mediaName asc";
-        return getMedia(upit);
+        return executeQuery("SELECT * FROM Media ORDER BY mediaName DESC", new Object[]{});
     }
 
     @Override
     public List<Media> getMediaOnSale() {
-        String upit = "SELECT * FROM Media WHERE Sales_pct IS NOT NULL";
-        return getMedia(upit);
+        return executeQuery("SELECT * FROM Media WHERE Sales_pct > 0", new Object[]{});
     }
 
     private List<Media> getMedia(String upit) {
@@ -103,11 +98,5 @@ public class MediaDaoImpl implements MediaDao{
             throw new RuntimeException(e);
         }
         return ispis;
-    }
-
-    @Override
-    public List<Media> getAll() {
-        String upit = "SELECT * FROM Media";
-        return getMedia(upit);
     }
 }
