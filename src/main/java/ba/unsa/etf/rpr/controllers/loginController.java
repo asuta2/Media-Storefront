@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class Controller  {
+public class loginController {
     public Hyperlink RegisterBtn;
     public TextField UsernameField;
     public PasswordField PasswordField;
@@ -29,7 +29,7 @@ public class Controller  {
                 .matches();
     }
 
-    public Controller(){
+    public loginController(){
         email = new SimpleStringProperty("");
         pass = new SimpleStringProperty("");
     }
