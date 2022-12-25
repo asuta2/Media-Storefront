@@ -17,7 +17,8 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public Map<String, Object> object2row(Users object) {
-        return null;
+        Map<String, Object> map = Map.of("username", object.getUsername(), "email", object.getEmail(), "password", object.getPassword(), "PrivilegeLevel", object.getPrivilegeLevel(), "Balance", object.getBalance());
+        return map;
     }
 
     @Override
@@ -40,13 +41,9 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public boolean checkUser(String email, String password) {
-        String upit = "SELECT * FROM Users where email = ? and password = ?";
         try {
-            PreparedStatement stmt = getConnection().prepareStatement(upit);
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return true;
+            Users temp = executeQueryUnique("SELECT * FROM Users where email = ? and password = ?",new Object[]{email,password});
+            if (temp!=null) return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,14 +52,22 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public boolean checkUsername(String username) {
-        String upit = "SELECT * FROM Users where Username = ?";
-        return provjeraHelper(username, upit);
+
+            Users temp = executeQueryUnique("SELECT * FROM Users where username = ?",new Object[]{username});
+            if (temp!=null) return true;
+            return false;
+
     }
 
     @Override
     public boolean checkEmail(String email) {
-        String upit = "SELECT * FROM Users where email = ?";
-        return provjeraHelper(email, upit);
+        try {
+            Users temp = executeQueryUnique("SELECT * FROM Users where email = ?",new Object[]{email});
+            if (temp!=null) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -70,15 +75,9 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
         return executeQueryUnique("SELECT * FROM Users WHERE email = ?", new Object[]{username});
     }
 
-    private boolean provjeraHelper(String email, String upit) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement(upit);
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+    @Override
+    public int getIdByUsername(String username) {
+        return executeQueryUnique("SELECT * FROM Users WHERE username = ?", new Object[]{username}).getIdUsers();
     }
-        return false;
-    }
+
 }
