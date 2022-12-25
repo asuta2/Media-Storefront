@@ -13,21 +13,32 @@ import java.util.Properties;
 
 
 public class purchasesDaoImpl extends AbstractDao<Purchases>implements PurchasesDao {
-    private Connection conn;
+
     public purchasesDaoImpl() {
-        super("Purchases");
+        super("purchases");
     }
 
 
 
     @Override
     public Map<String, Object> object2row(Purchases object) {
-        return null;
+        Map<String, Object> map = Map.of("purchasesId", object.getPurchasesId(), "userId", object.getUserId(), "mediaId", object.getMediaId(), "boughtDate", object.getBoughtDate());
+        return map;
     }
 
     @Override
     public Purchases row2object(ResultSet rs) {
+        try{
+            Purchases temp=new Purchases();
+            temp.setPurchasesId(rs.getInt(1));
+            temp.setUserId(rs.getInt(2));
+            temp.setMediaId(rs.getInt(3));
+            temp.setBoughtDate(rs.getDate(4));
+            return temp;
+    }catch (Exception e){
+        e.printStackTrace();
         return null;
+    }
     }
 
     @Override
