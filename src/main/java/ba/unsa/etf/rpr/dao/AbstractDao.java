@@ -62,14 +62,11 @@ public abstract class AbstractDao<T> implements dao<T>{
             }
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                return getById(id);
-            }
+            rs.next();
+            return item;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
     public T update(T item){
         Map<String, Object> row = object2row(item);
