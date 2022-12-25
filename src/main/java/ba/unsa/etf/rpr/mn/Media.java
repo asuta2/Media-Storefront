@@ -69,6 +69,10 @@ public class Media implements Serializable {
     public int getTypeId() {
         return typeId;
     }
+    @Override
+    public String toString() {
+        return mediaName;
+    }
 
 
 
