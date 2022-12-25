@@ -12,11 +12,17 @@ public class mainController {
     public Button myLibraryButton;
     public Button addFundsButton;
     public ListView<Media> mediaList;
+    public Button usernameButton;
     private MediaManager mediaManager = new MediaManager();
     @FXML
     public void initialize() {
         try{
             refreshList();
+            mediaList.getSelectionModel().selectedItemProperty().addListener((obs, oldMedia, newMedia) -> {
+                if (newMedia != null) {
+                    System.out.println(newMedia.getMediaName());
+                }
+            });
 
         }catch (Exception e) {
             e.printStackTrace();
