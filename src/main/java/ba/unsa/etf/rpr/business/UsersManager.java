@@ -9,13 +9,13 @@ public class UsersManager {
     public void delete(int id){
         DaoFactory.getUsersDao().delete(id);
     }
-    public void add(Users user){
-        DaoFactory.getUsersDao().add(user);
+    public Users add(Users user){
+        return DaoFactory.getUsersDao().add(user);
     }
-    public void update(Users user){
-        DaoFactory.getUsersDao().update(user);
+    public Users update(Users user){
+        return DaoFactory.getUsersDao().update(user);
     }
-    public Users getUserById(int id){
+    public Users getById(int id){
         return DaoFactory.getUsersDao().getById(id);
     }
     public List<Users> getAll(){

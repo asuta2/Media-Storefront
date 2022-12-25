@@ -9,16 +9,16 @@ public class MediaManager {
     public List<Media> getAll() {
         return DaoFactory.getMediaDao().getAll();
     }
-    public void addMedia(Media media) {
+    public void add(Media media) {
         DaoFactory.getMediaDao().add(media);
     }
-    public void updateMedia(Media media) {
+    public void update(Media media) {
         DaoFactory.getMediaDao().update(media);
     }
-    public void deleteMedia(int id) {
+    public void delete(int id) {
         DaoFactory.getMediaDao().delete(id);
     }
-    public Media getMediaById(int id) {
+    public Media getById(int id) {
         return DaoFactory.getMediaDao().getById(id);
     }
     public List<Media> getMediaByTypeAsc(int id) {
