@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.business.UsersManager;
 import ba.unsa.etf.rpr.dao.UsersDao;
 import ba.unsa.etf.rpr.dao.UsersDaoSQLImpl;
 import ba.unsa.etf.rpr.mn.Users;
@@ -27,11 +28,11 @@ public class registerController {
     public Label errorLabel3;
     public Label errorLabel4;
     public CheckBox checker;
-    private final UsersDao usersDao = new UsersDaoSQLImpl();
     private SimpleStringProperty username;
     private SimpleStringProperty password;
     private SimpleStringProperty email;
     private SimpleStringProperty emailConfirm;
+    private final UsersManager usersManager = new UsersManager();
 
     public registerController(){
         username = new SimpleStringProperty("");
@@ -56,7 +57,7 @@ public class registerController {
                 usernameField.getStyleClass().removeAll("successCode");
                 usernameField.getStyleClass().add("errorCode");
                 errorLabel1.setText("Username is empty.");
-            }else if(usersDao.checkUsername(usernameField.getText())){
+            }else if(usersManager.checkUsername(usernameField.getText())){
                 usernameField.getStyleClass().removeAll("successCode");
                 usernameField.getStyleClass().add("errorCode");
                 errorLabel1.setText("Username is taken.");
@@ -101,7 +102,7 @@ public class registerController {
                 emailField.getStyleClass().removeAll("successCode");
                 emailField.getStyleClass().add("errorCode");
                 errorLabel2.setText("Email is not valid.");
-            }else if(usersDao.checkEmail(emailField.getText())){
+            }else if(usersManager.checkEmail(emailField.getText())){
                 emailField.getStyleClass().removeAll("successCode");
                 emailField.getStyleClass().add("errorCode");
                 errorLabel2.setText("Email is taken.");
@@ -144,7 +145,7 @@ public class registerController {
             temp.setPassword(pass.getText());
             temp.setPrivilegeLevel("user");
             temp.setBalance(0.0);
-            usersDao.add(temp);
+            usersManager.add(temp);
 
             //close window and go back to login
             Stage stage = (Stage) usernameField.getScene().getWindow();
