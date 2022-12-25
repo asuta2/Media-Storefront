@@ -7,7 +7,6 @@ import java.util.*;
 
 
 public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
-    private Connection conn;
 
 
     public MediaDaoImpl() {
@@ -79,7 +78,7 @@ public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
     private List<Media> getMedia(String upit) {
         List<Media> ispis = new ArrayList<>();
         try{
-            PreparedStatement stmt = this.conn.prepareStatement(upit);
+            PreparedStatement stmt = getConnection().prepareStatement(upit);
             ResultSet rs = stmt.executeQuery();
             while (rs.next())
             {

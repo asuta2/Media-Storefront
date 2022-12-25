@@ -45,6 +45,7 @@ public class registerController {
         pass.textProperty().bindBidirectional(password);
         emailField.textProperty().bindBidirectional(email);
         emailConfirmField.textProperty().bindBidirectional(emailConfirm);
+
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if(usernameField.getText().length() > 20){
                 usernameField.getStyleClass().removeAll("successCode");
