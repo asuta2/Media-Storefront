@@ -22,7 +22,19 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public Users row2object(ResultSet rs) {
-        return null;
+        try{
+            Users temp=new Users();
+            temp.setIdUsers(rs.getInt(1));
+            temp.setUsername(rs.getString(2));
+            temp.setEmail(rs.getString(3));
+            temp.setPassword(rs.getString(4));
+            temp.setPrivilegeLevel(rs.getString(6));
+            temp.setBalance(rs.getDouble(5));
+            return temp;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -51,6 +63,11 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
     public boolean checkEmail(String email) {
         String upit = "SELECT * FROM Users where email = ?";
         return provjeraHelper(email, upit);
+    }
+
+    @Override
+    public Users getUserByEmail(String username) {
+        return executeQueryUnique("SELECT * FROM Users WHERE email = ?", new Object[]{username});
     }
 
     private boolean provjeraHelper(String email, String upit) {
