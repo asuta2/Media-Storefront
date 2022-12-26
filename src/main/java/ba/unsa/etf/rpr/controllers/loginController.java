@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import static javafx.scene.control.ButtonBar.setButtonUniformSize;
+
 public class loginController {
     public Hyperlink RegisterBtn;
     public TextField UsernameField;
@@ -70,8 +72,12 @@ public class loginController {
                     Users temp= usersManager.getUserByEmail(UsernameField.getText());
                     nv.usernameButton.setText(usersManager.getUserByEmail(UsernameField.getText()).getUsername());
                     stage.setTitle("Media Library");
-                    stage.setScene(new Scene(root, 600, 400));
+                    stage.setScene(new Scene(root));
                     stage.setResizable(true);
+                    setButtonUniformSize(nv.orderByBox,false);
+                    setButtonUniformSize(nv.usernameButton,false);
+                    setButtonUniformSize(nv.addFundsButton,false);
+                    nv.usernameButton.setWrapText(false);
                     stage.setMinHeight(stage.getHeight());
                     stage.setMinWidth(stage.getWidth());
                     stage.show();
