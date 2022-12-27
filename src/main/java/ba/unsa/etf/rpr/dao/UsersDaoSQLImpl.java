@@ -75,9 +75,10 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
         return executeQueryUnique("SELECT * FROM Users WHERE email = ?", new Object[]{username});
     }
 
+
     @Override
-    public int getIdByUsername(String username) {
-        return executeQueryUnique("SELECT * FROM Users WHERE username = ?", new Object[]{username}).getIdUsers();
+    public Users getUserByUsername(String username) {
+        return executeQueryUnique("SELECT * FROM Users WHERE username = ?", new Object[]{username});
     }
 
 }

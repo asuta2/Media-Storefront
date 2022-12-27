@@ -7,5 +7,5 @@ public interface UsersDao extends dao<Users>{
     boolean checkUsername(String username);
     boolean checkEmail(String email);
     Users getUserByEmail(String username);
-    int getIdByUsername(String username);
+    Users getUserByUsername(String username);
 }

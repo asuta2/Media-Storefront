@@ -33,4 +33,7 @@ public class UsersManager {
     public Users getUserByEmail(String username) {
         return DaoFactory.getUsersDao().getUserByEmail(username);
     }
+    public Users getUserByUsername(String username) {
+        return DaoFactory.getUsersDao().getUserByUsername(username);
+    }
 }
