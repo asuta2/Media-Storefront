@@ -2,14 +2,9 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.mn.Purchases;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 
 public class purchasesDaoImpl extends AbstractDao<Purchases>implements PurchasesDao {
