@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.models;
 
 import ba.unsa.etf.rpr.mn.Media;
+import ba.unsa.etf.rpr.mn.Users;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ public class mainModel {
     private ObservableList<String> chbox = FXCollections.observableArrayList();
     private SimpleObjectProperty<Media> currMedia = new SimpleObjectProperty<>();
     private ObservableList<Media> mediaops = FXCollections.observableArrayList();
+    private SimpleObjectProperty<Users> currUser = new SimpleObjectProperty<>();
 
     public void fill(){
         chbox.add("Media Ascending");
@@ -22,4 +24,11 @@ public class mainModel {
         return chbox;
     }
 
+    public Users getCurrUser() {
+        return currUser.get();
+    }
+
+    public void setCurrUser(Users currUser) {
+        this.currUser.set(currUser);
+    }
 }
