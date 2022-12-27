@@ -72,14 +72,15 @@ public class loginController {
                     Users temp= usersManager.getUserByEmail(UsernameField.getText());
                     nv.usernameButton.setText(usersManager.getUserByEmail(UsernameField.getText()).getUsername());
                     stage.setTitle("Media Library");
-                    stage.setScene(new Scene(root));
+                    stage.setMinHeight(stage.getHeight());
+                    stage.setMinWidth(stage.getWidth());
+                    stage.setScene(new Scene(root,700,500));
                     stage.setResizable(true);
                     setButtonUniformSize(nv.orderByBox,false);
                     setButtonUniformSize(nv.usernameButton,false);
                     setButtonUniformSize(nv.addFundsButton,false);
                     nv.usernameButton.setWrapText(false);
-                    stage.setMinHeight(stage.getHeight());
-                    stage.setMinWidth(stage.getWidth());
+
                     stage.show();
                     prim.close();
                 } catch (IOException e) {
