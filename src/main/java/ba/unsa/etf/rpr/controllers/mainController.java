@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.MediaManager;
 import ba.unsa.etf.rpr.business.PurchasesManager;
+import ba.unsa.etf.rpr.business.UsersManager;
 import ba.unsa.etf.rpr.mn.Media;
 import ba.unsa.etf.rpr.mn.Purchases;
 import ba.unsa.etf.rpr.models.mainModel;
@@ -26,6 +27,9 @@ public class mainController {
     public ListView<Media> mediaList;
     public Button usernameButton;
     private final MediaManager mediaManager = new MediaManager();
+    private final PurchasesManager purchasesManager = new PurchasesManager();
+    private final UsersManager usersManager = new UsersManager();
+
     public Button addButton;
     public Button shoppingButton;
     private ObservableList<Media> cart;
@@ -92,5 +96,17 @@ public class mainController {
         stage.setScene(new Scene(root));
         nv.itemView.setItems(cart);
         stage.show();
+    }
+
+    public void checkoutPressed(ActionEvent actionEvent) {
+        model.setCurrUser(usersManager.getUserByUsername(usernameButton.getText()));
+        for(Media m : cart){
+            Purchases p = new Purchases();
+            p.setMediaId(m.getIdMedia());
+            p.setUserId(model.getCurrUser().getIdUsers());
+            p.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+            purchasesManager.add(p);
+        }
+        cart.clear();
     }
 }
