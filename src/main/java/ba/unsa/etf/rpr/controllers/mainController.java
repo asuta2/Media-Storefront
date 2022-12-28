@@ -5,7 +5,6 @@ import ba.unsa.etf.rpr.business.PurchasesManager;
 import ba.unsa.etf.rpr.business.UsersManager;
 import ba.unsa.etf.rpr.mn.Media;
 import ba.unsa.etf.rpr.mn.Purchases;
-import ba.unsa.etf.rpr.models.mainModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
@@ -33,17 +33,15 @@ public class mainController {
     public Button addButton;
     public Button shoppingButton;
     private ObservableList<Media> cart;
-    private mainModel model = new mainModel();
     public ChoiceBox orderByBox;
     public mainController(){
         cart = FXCollections.observableArrayList();
-        model.fill();
     }
 
     @FXML
     public void initialize() {
         try{
-            orderByBox.setItems(model.getOrders());
+            orderByBox.setItems(FXCollections.observableArrayList("Name", "Price", "Date"));
             refreshList();
             mediaList.getSelectionModel().selectedItemProperty().addListener((obs, oldMedia, newMedia) -> {
                 if (newMedia != null) {
@@ -67,15 +65,13 @@ public class mainController {
             e.printStackTrace();
         }
     }
-
-
     public void libraryButtonClick(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/library.fxml"));
             Parent root = loader.load();
             libraryController nv = loader.getController();
-            nv.welcomeLabel.setText("Welcome to your Library, " + usernameButton.getText());
+            nv.welcomeLabel.setText("Welcome to your Library, " + usersManager.getCurrentUser().getUsername());
             stage.setTitle("Library");
             stage.setScene(new Scene(root));
             stage.show();
@@ -85,7 +81,23 @@ public class mainController {
     }
 
     public void addToCart(ActionEvent actionEvent) {
-        cart.add(mediaList.getSelectionModel().getSelectedItem());
+        if(mediaList.getSelectionModel().getSelectedItem()!=null ){
+        if(!cart.contains(mediaList.getSelectionModel().getSelectedItem())){
+                cart.add(mediaList.getSelectionModel().getSelectedItem());
+                System.out.println("Added to cart");
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("You have already added this media to your cart!");
+            alert.showAndWait();
+        }}else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("You have to select a media first!");
+            alert.showAndWait();
+        }
     }
     public void checkCart(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -99,14 +111,22 @@ public class mainController {
     }
 
     public void checkoutPressed(ActionEvent actionEvent) {
-        model.setCurrUser(usersManager.getUserByUsername(usernameButton.getText()));
-        for(Media m : cart){
-            Purchases p = new Purchases();
-            p.setMediaId(m.getIdMedia());
-            p.setUserId(model.getCurrUser().getIdUsers());
-            p.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
-            purchasesManager.add(p);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirmation");
+        alert.setContentText("Are you sure you want to checkout?");
+        alert.showAndWait();
+        if(alert.getResult().getText().equals("OK")){
+            for(Media m: cart){
+                Purchases p = new Purchases();
+                p.setMediaId(m.getIdMedia());
+                p.setUserId(usersManager.getCurrentUser().getIdUsers());
+                p.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+                purchasesManager.add(p);
+            }
+            System.out.println("Checkout successful!");
+            cart.clear();
         }
-        cart.clear();
+
     }
 }
