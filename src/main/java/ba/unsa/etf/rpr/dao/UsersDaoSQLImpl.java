@@ -2,11 +2,9 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.mn.Users;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
-import java.util.Properties;
 
 public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
     //private Connection conn;
