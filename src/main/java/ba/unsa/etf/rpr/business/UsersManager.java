@@ -6,6 +6,16 @@ import ba.unsa.etf.rpr.mn.Users;
 import java.util.List;
 
 public class UsersManager {
+    private static Users currentUser = new Users();
+
+    public static Users getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(Users currentUser) {
+        UsersManager.currentUser = currentUser;
+    }
+
     public void delete(int id){
         DaoFactory.getUsersDao().delete(id);
     }
@@ -36,4 +46,5 @@ public class UsersManager {
     public Users getUserByUsername(String username) {
         return DaoFactory.getUsersDao().getUserByUsername(username);
     }
+
 }
