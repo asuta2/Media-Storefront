@@ -1,9 +1,6 @@
 package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.UsersManager;
-import ba.unsa.etf.rpr.dao.UsersDao;
-import ba.unsa.etf.rpr.dao.UsersDaoSQLImpl;
-import ba.unsa.etf.rpr.mn.Users;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,8 +21,8 @@ public class loginController {
     public PasswordField PasswordField;
     public Button loginButton;
     public Label errorLabel;
-    private SimpleStringProperty email;
-    private SimpleStringProperty pass;
+    private final SimpleStringProperty email;
+    private final SimpleStringProperty pass;
     private final UsersManager usersManager = new UsersManager();
     //private final UsersDao usersDao = new UsersDaoSQLImpl();
 
@@ -61,20 +58,22 @@ public class loginController {
             if(usersManager.checkUser(UsernameField.getText(), PasswordField.getText())){
                 System.out.println("Uspjesno ste se prijavili!" + UsernameField.getText() + " " + PasswordField.getText());
                 errorLabel.setText("You have successfully signed in.");
-                UsernameField.getStyleClass().remove("errorCode");
-                PasswordField.getStyleClass().remove("errorCode");
+                UsernameField.getStyleClass().removeAll("errorCode");
+                PasswordField.getStyleClass().removeAll("errorCode");
+                UsernameField.getStyleClass().add("successCode");
+                PasswordField.getStyleClass().add("successCode");
+                UsersManager.setCurrentUser(usersManager.getUserByEmail(UsernameField.getText()));
                 try {
                     Stage prim = (Stage) loginButton.getScene().getWindow();
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
                     Parent root = loader.load();
                     mainController nv = loader.getController();
-                    Users temp= usersManager.getUserByEmail(UsernameField.getText());
-                    nv.usernameButton.setText(usersManager.getUserByEmail(UsernameField.getText()).getUsername());
+                    nv.usernameButton.setText(UsersManager.getCurrentUser().getUsername());
                     stage.setTitle("Media Library");
+                    stage.setScene(new Scene(root,700,500));
                     stage.setMinHeight(stage.getHeight());
                     stage.setMinWidth(stage.getWidth());
-                    stage.setScene(new Scene(root,700,500));
                     stage.setResizable(true);
                     setButtonUniformSize(nv.orderByBox,false);
                     setButtonUniformSize(nv.usernameButton,false);
