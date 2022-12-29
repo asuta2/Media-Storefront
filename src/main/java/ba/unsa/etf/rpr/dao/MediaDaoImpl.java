@@ -75,6 +75,11 @@ public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
         return executeQuery("SELECT * FROM Media WHERE Sales_pct > 0", new Object[]{});
     }
 
+    @Override
+    public Media getMediaById(int id) {
+        return executeQueryUnique("SELECT * FROM Media WHERE idMedia = ?", new Object[]{id});
+    }
+
     private List<Media> getMedia(String upit) {
         List<Media> ispis = new ArrayList<>();
         try{
