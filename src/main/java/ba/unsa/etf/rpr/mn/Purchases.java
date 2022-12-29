@@ -40,13 +40,4 @@ public class Purchases implements Serializable {
     public void setBoughtDate(Date boughtDate) {
         this.boughtDate = boughtDate;
     }
-    @Override
-    public String toString() {
-        return "Purchases{" +
-                "purchasesId=" + purchasesId +
-                ", userId=" + userId +
-                ", mediaId=" + mediaId +
-                ", boughtDate=" + boughtDate +
-                '}';
-    }
 }
