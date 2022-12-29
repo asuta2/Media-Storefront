@@ -15,8 +15,7 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public Map<String, Object> object2row(Users object) {
-        Map<String, Object> map = Map.of("username", object.getUsername(), "email", object.getEmail(), "password", object.getPassword(), "PrivilegeLevel", object.getPrivilegeLevel(), "Balance", object.getBalance());
-        return map;
+        return Map.of("username", object.getUsername(), "email", object.getEmail(), "password", object.getPassword(), "PrivilegeLevel", object.getPrivilegeLevel(), "Balance", object.getBalance());
     }
 
     @Override
@@ -51,9 +50,8 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
     @Override
     public boolean checkUsername(String username) {
 
-            Users temp = executeQueryUnique("SELECT * FROM Users where username = ?",new Object[]{username});
-            if (temp!=null) return true;
-            return false;
+        Users temp = executeQueryUnique("SELECT * FROM Users where username = ?",new Object[]{username});
+        return temp != null;
 
     }
 

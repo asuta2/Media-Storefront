@@ -13,12 +13,9 @@ public class purchasesDaoImpl extends AbstractDao<Purchases>implements Purchases
         super("purchases");
     }
 
-
-
     @Override
     public Map<String, Object> object2row(Purchases object) {
-        Map<String, Object> map = Map.of("purchasesId", object.getPurchasesId(), "userId", object.getUserId(), "mediaId", object.getMediaId(), "boughtDate", object.getBoughtDate());
-        return map;
+        return Map.of("purchasesId", object.getPurchasesId(), "userId", object.getUserId(), "mediaId", object.getMediaId(), "boughtDate", object.getBoughtDate());
     }
 
     @Override
@@ -39,6 +36,6 @@ public class purchasesDaoImpl extends AbstractDao<Purchases>implements Purchases
     @Override
     public List<Purchases> getAllPurchasesById(int id) {
        //gets all purchases from a user
-        return executeQuery("SELECT * FROM Purchases WHERE idUser = " + id,new Object[] {id});
+        return executeQuery("SELECT * FROM purchases WHERE userId = ?",new Object[] {id});
     }
 }
