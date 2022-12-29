@@ -12,11 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 
@@ -61,6 +60,29 @@ public class mainController {
     private void refreshList() {
         try {
             mediaList.setItems(FXCollections.observableList(mediaManager.getAll()));
+            mediaList.setCellFactory(new Callback<ListView<Media>, ListCell<Media>>() {
+                @Override
+                public ListCell<Media> call(ListView<Media> mediaListView) {
+                    return new ListCell<Media>() {
+                        @Override
+                        protected void updateItem(Media media, boolean b) {
+                            super.updateItem(media, b);
+                            if (media != null) {
+                                HBox hBox = new HBox();
+                                hBox.setSpacing(mediaList.getWidth() / 3);
+                                hBox.getChildren().add(new Label(media.getMediaName()));
+                                hBox.getChildren().add(new Label(String.valueOf(media.getPrice())));
+                                hBox.getChildren().add(new Label(media.getDescription()));
+                                setGraphic(hBox);
+                            } else {
+                                setText("");
+                                setGraphic(null);
+                            }
+                        }
+                    };
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +93,7 @@ public class mainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/library.fxml"));
             Parent root = loader.load();
             libraryController nv = loader.getController();
-            nv.welcomeLabel.setText("Welcome to your Library, " + usersManager.getCurrentUser().getUsername());
+            nv.welcomeLabel.setText("Welcome to your Library, " + UsersManager.getCurrentUser().getUsername());
             stage.setTitle("Library");
             stage.setScene(new Scene(root));
             stage.show();
@@ -120,7 +142,7 @@ public class mainController {
             for(Media m: cart){
                 Purchases p = new Purchases();
                 p.setMediaId(m.getIdMedia());
-                p.setUserId(usersManager.getCurrentUser().getIdUsers());
+                p.setUserId(UsersManager.getCurrentUser().getIdUsers());
                 p.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
                 purchasesManager.add(p);
             }

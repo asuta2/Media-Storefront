@@ -21,7 +21,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
             <ChoiceBox fx:id="orderByBox" />
-            <Region prefHeight="200.0" prefWidth="200.0" />
+            <Region />
             <Button fx:id="addFundsButton" minHeight="20.0" minWidth="0.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="25.0" text="+" />
           <Button fx:id="usernameButton" mnemonicParsing="false" text="Username" />
         </buttons>
