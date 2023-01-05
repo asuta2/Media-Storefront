@@ -15,7 +15,6 @@ import javafx.util.Callback;
 public class libraryController {
     private final PurchasesManager purchasesManager = new PurchasesManager();
     private final MediaManager mediaManager = new MediaManager();
-    private final UsersManager usersManager = new UsersManager();
     public ListView listLibrary;
     public Label welcomeLabel;
 
@@ -29,11 +28,11 @@ public class libraryController {
     }
     private void refreshList() {
         try {
-            listLibrary.setItems(FXCollections.observableList(purchasesManager.getAllPurchasesById(usersManager.getCurrentUser().getIdUsers())));
+            listLibrary.setItems(FXCollections.observableList(purchasesManager.getAllPurchasesById(UsersManager.getCurrentUser().getIdUsers())));
             listLibrary.setCellFactory(new Callback<ListView<Purchases>, ListCell<Purchases>>() {
                 @Override
                 public ListCell<Purchases> call(ListView<Purchases> purchasesListView) {
-                    return new ListCell<Purchases>() {
+                    return new ListCell<>() {
                         @Override
                         protected void updateItem(Purchases purchases, boolean b) {
                             super.updateItem(purchases, b);
@@ -42,7 +41,7 @@ public class libraryController {
                                 hBox.setSpacing(10);
                                 hBox.getChildren().addAll(new Label(mediaManager.getMediaById(purchases.getMediaId()).getMediaName()), new Label(purchases.getBoughtDate().toString()));
                                 setGraphic(hBox);
-                            }else setGraphic(null);
+                            } else setGraphic(null);
                         }
                     };
                 }

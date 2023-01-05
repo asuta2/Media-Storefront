@@ -1,7 +1,6 @@
 package ba.unsa.etf.rpr.mn;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Users implements Serializable {
     private int idUsers;

@@ -60,10 +60,10 @@ public class mainController {
     private void refreshList() {
         try {
             mediaList.setItems(FXCollections.observableList(mediaManager.getAll()));
-            mediaList.setCellFactory(new Callback<ListView<Media>, ListCell<Media>>() {
+            mediaList.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Media> call(ListView<Media> mediaListView) {
-                    return new ListCell<Media>() {
+                    return new ListCell<>() {
                         @Override
                         protected void updateItem(Media media, boolean b) {
                             super.updateItem(media, b);
