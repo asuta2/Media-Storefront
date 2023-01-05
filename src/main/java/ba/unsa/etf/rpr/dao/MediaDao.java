@@ -10,5 +10,7 @@ public interface MediaDao extends dao<Media>{
     List<Media> getMediaAsc();
     List<Media> getMediaDesc();
     List<Media> getMediaOnSale();
+    List<Media> getMediaByPriceAsc();
+    List<Media> getMediaByPriceDesc();
     Media getMediaById(int id);
 }

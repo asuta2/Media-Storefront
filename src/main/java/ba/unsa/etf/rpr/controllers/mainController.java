@@ -40,7 +40,7 @@ public class mainController {
     @FXML
     public void initialize() {
         try{
-            orderByBox.setItems(FXCollections.observableArrayList("Name", "Price", "Date"));
+            orderByBox.setItems(FXCollections.observableArrayList("On Sale", "Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A"));
             refreshList();
             mediaList.getSelectionModel().selectedItemProperty().addListener((obs, oldMedia, newMedia) -> {
                 if (newMedia != null) {
@@ -145,7 +145,21 @@ public class mainController {
             e.printStackTrace();
         }
     }
-
+    public void orderByChoice(ActionEvent actionEvent) {
+        if(orderByBox.getValue()!=null){
+            if(orderByBox.getValue().equals("On Sale")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaOnSale()));
+            }else if(orderByBox.getValue().equals("Price: Low to High")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaByPriceAsc()));
+            }else if(orderByBox.getValue().equals("Price: High to Low")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaByPriceDesc()));
+            }else if(orderByBox.getValue().equals("Name: A to Z")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaDesc()));
+            }else if(orderByBox.getValue().equals("Name: Z to A")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaAsc()));
+            }
+        }
+    }
 
     public void checkoutPressed(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -72,7 +72,17 @@ public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
 
     @Override
     public List<Media> getMediaOnSale() {
-        return executeQuery("SELECT * FROM Media WHERE Sales_pct > 0", new Object[]{});
+        return executeQuery("SELECT * FROM Media WHERE Sales_pct > 0 order by Sales_pct asc", new Object[]{});
+    }
+
+    @Override
+    public List<Media> getMediaByPriceAsc() {
+        return executeQuery("SELECT * FROM Media order by Price asc", new Object[]{});
+    }
+
+    @Override
+    public List<Media> getMediaByPriceDesc() {
+        return executeQuery("SELECT * FROM Media order by Price desc", new Object[]{});
     }
 
     @Override

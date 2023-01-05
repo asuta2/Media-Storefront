@@ -36,6 +36,12 @@ public class MediaManager {
     public List<Media> getMediaOnSale() {
         return DaoFactory.getMediaDao().getMediaOnSale();
     }
+    public List<Media> getMediaByPriceAsc() {
+        return DaoFactory.getMediaDao().getMediaByPriceAsc();
+    }
+    public List<Media> getMediaByPriceDesc() {
+        return DaoFactory.getMediaDao().getMediaByPriceDesc();
+    }
     public Media getMediaById(int id) {
         return DaoFactory.getMediaDao().getMediaById(id);
     }
