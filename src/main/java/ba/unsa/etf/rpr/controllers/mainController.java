@@ -131,6 +131,21 @@ public class mainController {
         nv.itemView.setItems(cart);
         stage.show();
     }
+    public void addFunds(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addFunds.fxml"));
+            Parent root = loader.load();
+            addFundsController nv = loader.getController();
+            nv.welcomeLabel.setText("Welcome to your Library, " + UsersManager.getCurrentUser().getUsername());
+            stage.setTitle("Add Funds");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void checkoutPressed(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
