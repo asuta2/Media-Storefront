@@ -72,8 +72,8 @@ public class loginController {
                     nv.usernameButton.setText(UsersManager.getCurrentUser().getUsername());
                     stage.setTitle("Media Library");
                     stage.setScene(new Scene(root,700,500));
-                    stage.setMinHeight(stage.getHeight());
-                    stage.setMinWidth(stage.getWidth());
+                    stage.setMinHeight(700);
+                    stage.setMinWidth(500);
                     stage.setResizable(true);
                     setButtonUniformSize(nv.orderByBox,false);
                     setButtonUniformSize(nv.usernameButton,false);
