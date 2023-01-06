@@ -71,7 +71,7 @@ public class Media implements Serializable {
     }
     @Override
     public String toString() {
-        return mediaName;
+        return mediaName + " " + Price;
     }
 
 
