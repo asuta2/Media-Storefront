@@ -22,8 +22,8 @@
         <buttons>
             <ChoiceBox fx:id="orderByBox" />
             <Region />
-            <Button fx:id="addFundsButton" minHeight="20.0" minWidth="0.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="25.0" text="+" />
-          <Button fx:id="usernameButton" mnemonicParsing="false" text="Username" />
+            <Button fx:id="addFundsButton" minHeight="20.0" minWidth="0.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#addFunds" prefHeight="30.0" prefWidth="25.0" text="+" />
+          <MenuButton fx:id="usernameButton" mnemonicParsing="false" text="Username" />
         </buttons>
       </ButtonBar>
    </top>

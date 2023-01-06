@@ -24,10 +24,9 @@ public class mainController {
     public Button myLibraryButton;
     public Button addFundsButton;
     public ListView<Media> mediaList;
-    public Button usernameButton;
+    public MenuButton usernameButton;
     private final MediaManager mediaManager = new MediaManager();
     private final PurchasesManager purchasesManager = new PurchasesManager();
-    private final UsersManager usersManager = new UsersManager();
 
     public Button addButton;
     public Button shoppingButton;
@@ -49,7 +48,7 @@ public class mainController {
             });
             orderByBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n)->{
                 if(n!=null){
-                    System.out.println(n);
+                    orderByChoice();
                 }
             });
 
@@ -134,18 +133,19 @@ public class mainController {
     public void addFunds(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addFunds.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/funds.fxml"));
             Parent root = loader.load();
             addFundsController nv = loader.getController();
-            nv.welcomeLabel.setText("Welcome to your Library, " + UsersManager.getCurrentUser().getUsername());
+            nv.welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
             stage.setTitle("Add Funds");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void orderByChoice(ActionEvent actionEvent) {
+    public void orderByChoice() {
         if(orderByBox.getValue()!=null){
             if(orderByBox.getValue().equals("On Sale")){
                 mediaList.setItems(FXCollections.observableList(mediaManager.getMediaOnSale()));
@@ -154,9 +154,9 @@ public class mainController {
             }else if(orderByBox.getValue().equals("Price: High to Low")){
                 mediaList.setItems(FXCollections.observableList(mediaManager.getMediaByPriceDesc()));
             }else if(orderByBox.getValue().equals("Name: A to Z")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaDesc()));
-            }else if(orderByBox.getValue().equals("Name: Z to A")){
                 mediaList.setItems(FXCollections.observableList(mediaManager.getMediaAsc()));
+            }else if(orderByBox.getValue().equals("Name: Z to A")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaDesc()));
             }
         }
     }
