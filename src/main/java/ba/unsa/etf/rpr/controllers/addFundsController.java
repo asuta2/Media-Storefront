@@ -11,7 +11,7 @@ public class addFundsController {
         //Adds 5$ to the balance of the user
         usersManager.addFunds(5);
         usersManager.update(UsersManager.getCurrentUser());
-        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + " your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
+        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
 
     }
 
@@ -19,7 +19,7 @@ public class addFundsController {
         //Adds 10$ to the balance of the user
         usersManager.addFunds(10);
         usersManager.update(UsersManager.getCurrentUser());
-        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + " your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
+        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
 
     }
 
@@ -27,7 +27,7 @@ public class addFundsController {
         //Adds 30$ to the balance of the user
         usersManager.addFunds(30);
         usersManager.update(UsersManager.getCurrentUser());
-        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + " your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
+        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
 
     }
 
@@ -35,6 +35,6 @@ public class addFundsController {
         //Adds 50$ to the balance of the user
         usersManager.addFunds(50);
         usersManager.update(UsersManager.getCurrentUser());
-        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + " your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
+        welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
     }
 }

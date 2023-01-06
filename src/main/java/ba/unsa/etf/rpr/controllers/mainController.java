@@ -27,9 +27,11 @@ public class mainController {
     public MenuButton usernameButton;
     private final MediaManager mediaManager = new MediaManager();
     private final PurchasesManager purchasesManager = new PurchasesManager();
+    private final UsersManager usersManager = new UsersManager();
 
     public Button addButton;
     public Button shoppingButton;
+    public Label costLabel;
     private ObservableList<Media> cart;
     public ChoiceBox orderByBox;
     public mainController(){
@@ -106,6 +108,7 @@ public class mainController {
         if(!cart.contains(mediaList.getSelectionModel().getSelectedItem())){
                 cart.add(mediaList.getSelectionModel().getSelectedItem());
                 System.out.println("Added to cart");
+                costLabel.setText("Current Cost: " + getTotalCost() + "$");
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -120,6 +123,15 @@ public class mainController {
             alert.showAndWait();
         }
     }
+
+    private Double getTotalCost() {
+        Double totalCost = 0.0;
+        for(Media m : cart){
+            totalCost+=m.getPrice();
+        }
+        return totalCost;
+    }
+
     public void checkCart(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cart.fxml"));
@@ -168,15 +180,30 @@ public class mainController {
         alert.setContentText("Are you sure you want to checkout?");
         alert.showAndWait();
         if(alert.getResult().getText().equals("OK")){
-            for(Media m: cart){
-                Purchases p = new Purchases();
-                p.setMediaId(m.getIdMedia());
-                p.setUserId(UsersManager.getCurrentUser().getIdUsers());
-                p.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
-                purchasesManager.add(p);
+            if(UsersManager.getCurrentUser().getBalance()>=getTotalCost()){
+                UsersManager.getCurrentUser().setBalance(UsersManager.getCurrentUser().getBalance()-getTotalCost());
+                for(Media m: cart){
+                    Purchases p = new Purchases();
+                    p.setMediaId(m.getIdMedia());
+                    p.setUserId(UsersManager.getCurrentUser().getIdUsers());
+                    p.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+                    purchasesManager.add(p);
+                }
+                usersManager.update(UsersManager.getCurrentUser());
+                cart.clear();
+                costLabel.setText("Current Cost: " + getTotalCost() + "$");
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Success");
+                alert1.setHeaderText("Success");
+                alert1.setContentText("You have successfully checked out!");
+                alert1.showAndWait();
+            }else {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.setTitle("Error");
+                alert1.setHeaderText("Error");
+                alert1.setContentText("You don't have enough funds to checkout!");
+                alert1.showAndWait();
             }
-            System.out.println("Checkout successful!");
-            cart.clear();
         }
 
     }
