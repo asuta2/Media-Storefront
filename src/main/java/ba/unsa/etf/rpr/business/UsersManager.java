@@ -47,4 +47,7 @@ public class UsersManager {
         return DaoFactory.getUsersDao().getUserByUsername(username);
     }
 
+    public void addFunds(int i) {
+        currentUser.setBalance(currentUser.getBalance() + i);
+    }
 }
