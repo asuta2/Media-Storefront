@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -30,7 +31,11 @@
             <ChoiceBox fx:id="orderByBox" />
             <Region />
             <Button fx:id="addFundsButton" minHeight="20.0" minWidth="0.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#addFunds" prefHeight="30.0" prefWidth="25.0" text="+" />
-          <MenuButton fx:id="usernameButton" mnemonicParsing="false" text="Username" />
+          <MenuButton fx:id="usernameButton" mnemonicParsing="false" text="Username">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#editProfileOpen" text="Edit Profile" />
+                  <MenuItem mnemonicParsing="false" onAction="#logOutButton" text="Log Out" />
+               </items></MenuButton>
         </buttons>
       </ButtonBar>
    </top>
