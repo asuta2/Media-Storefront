@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="885.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.controllers.addFundsController">
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Add5" text="Add $5 to your account" wrapText="true">
+               <HBox.margin>
+                  <Insets left="55.0" right="70.0" />
+               </HBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Add10" text="Add $10 to your account" wrapText="true">
+               <HBox.margin>
+                  <Insets left="55.0" right="70.0" />
+               </HBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Add30" text="Add $30 to your account" wrapText="true">
+               <HBox.margin>
+                  <Insets left="55.0" right="70.0" />
+               </HBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Add50" text="Add $50 to your account" wrapText="true">
+               <HBox.margin>
+                  <Insets left="55.0" right="70.0" />
+               </HBox.margin>
+            </Button>
+         </children></HBox>
+   </center>
+   <top>
+      <Label fx:id="welcome" prefHeight="35.0" prefWidth="851.0" text="Label" wrapText="true" BorderPane.alignment="CENTER_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="55.0" left="10.0" top="20.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+</BorderPane>
