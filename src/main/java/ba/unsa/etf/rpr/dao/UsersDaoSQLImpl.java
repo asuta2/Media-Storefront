@@ -95,4 +95,9 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
         return executeQueryUnique("SELECT * FROM Users WHERE username = ?", new Object[]{username});
     }
 
+    @Override
+    public Users editProfile(Users temp) {
+        return update(temp);
+    }
+
 }

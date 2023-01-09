@@ -8,4 +8,5 @@ public interface UsersDao extends dao<Users>{
     boolean checkEmail(String email);
     Users getUserByEmail(String username);
     Users getUserByUsername(String username);
+    Users editProfile(Users temp);
 }

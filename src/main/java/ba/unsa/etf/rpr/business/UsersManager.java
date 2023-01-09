@@ -51,4 +51,7 @@ public class UsersManager {
         currentUser.setBalance(currentUser.getBalance() + i);
     }
     public void clearCurrentUser(){currentUser=null;}
+    public Users editProfile(Users temp){
+        return DaoFactory.getUsersDao().editProfile(temp);
+    }
 }
