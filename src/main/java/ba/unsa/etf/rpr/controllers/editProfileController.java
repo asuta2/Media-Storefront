@@ -100,10 +100,10 @@ public class editProfileController {
     }
 
     public void confirmEdit(ActionEvent actionEvent) {
-        usersManager.getCurrentUser().setUsername(usernameField.getText());
-        usersManager.getCurrentUser().setEmail(emailField.getText());
-        usersManager.getCurrentUser().setPassword(pass.getText());
-        usersManager.editProfile(usersManager.getCurrentUser());
+        UsersManager.getCurrentUser().setUsername(usernameField.getText());
+        UsersManager.getCurrentUser().setEmail(emailField.getText());
+        UsersManager.getCurrentUser().setPassword(pass.getText());
+        usersManager.editProfile(UsersManager.getCurrentUser());
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
 
