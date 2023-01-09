@@ -198,6 +198,9 @@ public class mainController {
             //sort by name Z to A
             else if(orderByBox.getValue().equals("Name: Z to A")){
                 mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName).reversed()).toList()));
+            //sort by sales
+            }else if(orderByBox.getValue().equals("On Sale")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).filter(media -> media.getSales_pct() > 0).toList()));
             }
         }
     }
