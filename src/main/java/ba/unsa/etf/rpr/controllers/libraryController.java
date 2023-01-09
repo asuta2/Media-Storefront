@@ -21,7 +21,7 @@ public class libraryController {
     @FXML
     public void initialize() {
         try{
-            refreshList();
+            //refreshList();
         }catch (Exception e) {
             e.printStackTrace();
         }

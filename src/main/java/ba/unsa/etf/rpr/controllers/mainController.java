@@ -20,6 +20,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class mainController {
@@ -64,10 +65,9 @@ public class mainController {
     }
     private void refreshList() {
         try {
-            List<Media> temp = mediaManager.getAll();
-
-            mediaList.setItems(FXCollections.observableList(mediaManager.getAll()));
-
+            //filter out media that the user already owns using streams
+            allPurchasesOfCurrentUser = purchasesManager.getAllPurchasesById(UsersManager.getCurrentUser().getIdUsers());
+            mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).toList()));
             mediaList.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Media> call(ListView<Media> mediaListView) {
@@ -102,6 +102,24 @@ public class mainController {
             Parent root = loader.load();
             libraryController nv = loader.getController();
             nv.welcomeLabel.setText("Welcome to your Library, " + UsersManager.getCurrentUser().getUsername());
+            nv.listLibrary.setItems(FXCollections.observableList(allPurchasesOfCurrentUser));
+            nv.listLibrary.setCellFactory(new Callback<ListView<Purchases>, ListCell<Purchases>>() {
+                @Override
+                public ListCell<Purchases> call(ListView<Purchases> purchasesListView) {
+                    return new ListCell<>() {
+                        @Override
+                        protected void updateItem(Purchases purchases, boolean b) {
+                            super.updateItem(purchases, b);
+                            if (purchases != null) {
+                                HBox hBox = new HBox();
+                                hBox.setSpacing(10);
+                                hBox.getChildren().addAll(new Label(mediaManager.getMediaById(purchases.getMediaId()).getMediaName()), new Label(purchases.getBoughtDate().toString()));
+                                setGraphic(hBox);
+                            } else setGraphic(null);
+                        }
+                    };
+                }
+            });
             stage.setTitle("Library");
             stage.setScene(new Scene(root));
             stage.show();
@@ -166,16 +184,21 @@ public class mainController {
     }
     public void orderByChoice() {
         if(orderByBox.getValue()!=null){
-            if(orderByBox.getValue().equals("On Sale")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaOnSale()));
-            }else if(orderByBox.getValue().equals("Price: Low to High")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaByPriceAsc()));
-            }else if(orderByBox.getValue().equals("Price: High to Low")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaByPriceDesc()));
-            }else if(orderByBox.getValue().equals("Name: A to Z")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaAsc()));
-            }else if(orderByBox.getValue().equals("Name: Z to A")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getMediaDesc()));
+            //sort by price low to high
+            if(orderByBox.getValue().equals("Price: Low to High")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice)).toList()));
+            }
+            //sort by price high to low
+            else if(orderByBox.getValue().equals("Price: High to Low")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice).reversed()).toList()));
+            }
+            //sort by name A to Z
+            else if(orderByBox.getValue().equals("Name: A to Z")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName)).toList()));
+            }
+            //sort by name Z to A
+            else if(orderByBox.getValue().equals("Name: Z to A")){
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName).reversed()).toList()));
             }
         }
     }
