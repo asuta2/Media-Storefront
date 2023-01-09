@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ba.unsa.etf.rpr.controllers.editProfileController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.controllers.editProfileController">
+    <stylesheets>
+        <URL value="@../css/registration.css" />
+    </stylesheets>
+    <children>
+        <Label fx:id="mainText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="EDIT YOUR ACCOUNT">
+            <padding>
+                <Insets bottom="20.0" left="35.0" top="70.0" />
+            </padding>
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <Label text="Username">
+            <padding>
+                <Insets bottom="5.0" left="35.0" />
+            </padding>
+        </Label>
+        <TextField fx:id="usernameField" prefHeight="31.0">
+            <VBox.margin>
+                <Insets bottom="10.0" left="35.0" right="200.0" />
+            </VBox.margin>
+        </TextField>
+        <Label fx:id="errorLabel1">
+            <padding>
+                <Insets left="35.0" />
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+        </Label>
+        <Label text="Email Address">
+            <padding>
+                <Insets left="35.0" />
+            </padding>
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </Label>
+        <TextField fx:id="emailField" prefHeight="31.0">
+            <VBox.margin>
+                <Insets bottom="10.0" left="35.0" right="200.0" />
+            </VBox.margin>
+        </TextField>
+        <Label fx:id="errorLabel2">
+            <padding>
+                <Insets left="35.0" />
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+        </Label>
+        <Label text="Password">
+            <padding>
+                <Insets left="35.0" />
+            </padding>
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </Label>
+        <PasswordField fx:id="pass" prefHeight="31.0" prefWidth="263.0">
+            <VBox.margin>
+                <Insets bottom="10.0" left="35.0" right="200.0" />
+            </VBox.margin>
+        </PasswordField>
+        <Label fx:id="errorLabel4">
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="35.0" />
+            </padding>
+        </Label>
+        <Button fx:id="confirmButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="47.0" prefWidth="211.0" text="Confirm">
+            <VBox.margin>
+                <Insets left="35.0" top="35.0" />
+            </VBox.margin>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <font>
+            <Font size="14.0" />
+         </font>
+        </Button>
+    </children>
+</VBox>

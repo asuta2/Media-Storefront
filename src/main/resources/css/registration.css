@@ -19,7 +19,7 @@
     -fx-font-weight: bold;
     -fx-font-family: 'Roboto', sans-serif;
 }
-#signupButton{
+#signupButton,#confirmButton{
 -fx-background-color: linear-gradient(to right, rgba(7,190,255,1) 0%, rgba(45,117,255,1) 100%);
     -fx-margin: 10px;
     -fx-padding: 15px 45px;
