@@ -8,7 +8,6 @@ import ba.unsa.etf.rpr.mn.Purchases;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,7 +66,7 @@ public class mainController {
         try {
             //filter out media that the user already owns using streams
             allPurchasesOfCurrentUser = purchasesManager.getAllPurchasesById(UsersManager.getCurrentUser().getIdUsers());
-            mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).toList()));
+            mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).toList()));
             mediaList.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Media> call(ListView<Media> mediaListView) {
@@ -186,19 +185,19 @@ public class mainController {
         if(orderByBox.getValue()!=null){
             //sort by price low to high
             if(orderByBox.getValue().equals("Price: Low to High")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice)).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice)).toList()));
             }
             //sort by price high to low
             else if(orderByBox.getValue().equals("Price: High to Low")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice).reversed()).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice).reversed()).toList()));
             }
             //sort by name A to Z
             else if(orderByBox.getValue().equals("Name: A to Z")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName)).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName)).toList()));
             }
             //sort by name Z to A
             else if(orderByBox.getValue().equals("Name: Z to A")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> !allPurchasesOfCurrentUser.stream().anyMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName).reversed()).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName).reversed()).toList()));
             }
         }
     }
@@ -245,10 +244,25 @@ public class mainController {
             Parent root = loader.load();
             stage.setTitle("Edit Profile");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setOnCloseRequest(e->{
+                e.consume();
+                closeProgram(stage);
+                usernameButton.setText(UsersManager.getCurrentUser().getUsername());
+            });
+            stage.setOnHidden(e->{
+                e.consume();
+                closeProgram(stage);
+                usernameButton.setText(UsersManager.getCurrentUser().getUsername());
+            });
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void closeProgram(Stage stage) {
+        stage.close();
     }
 
     public void logOutButton(ActionEvent actionEvent) {
