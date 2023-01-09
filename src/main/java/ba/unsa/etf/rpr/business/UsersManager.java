@@ -50,4 +50,5 @@ public class UsersManager {
     public void addFunds(int i) {
         currentUser.setBalance(currentUser.getBalance() + i);
     }
+    public void clearCurrentUser(){currentUser=null;}
 }

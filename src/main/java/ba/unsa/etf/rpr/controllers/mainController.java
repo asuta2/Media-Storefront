@@ -8,6 +8,7 @@ import ba.unsa.etf.rpr.mn.Purchases;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class mainController {
 
@@ -28,6 +31,7 @@ public class mainController {
     private final MediaManager mediaManager = new MediaManager();
     private final PurchasesManager purchasesManager = new PurchasesManager();
     private final UsersManager usersManager = new UsersManager();
+    private List<Purchases> allPurchasesOfCurrentUser = new ArrayList<>();
 
     public Button addButton;
     public Button shoppingButton;
@@ -60,7 +64,10 @@ public class mainController {
     }
     private void refreshList() {
         try {
+            List<Media> temp = mediaManager.getAll();
+
             mediaList.setItems(FXCollections.observableList(mediaManager.getAll()));
+
             mediaList.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Media> call(ListView<Media> mediaListView) {
@@ -206,5 +213,37 @@ public class mainController {
             }
         }
 
+    }
+
+    public void editProfileOpen(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editProfile.fxml"));
+            Parent root = loader.load();
+            stage.setTitle("Edit Profile");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logOutButton(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+            stage.setTitle("Login");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+            Stage mainWindow = (Stage) usernameButton.getScene().getWindow();
+            mainWindow.close();
+            System.out.println("Successfully logged out!");
+            usersManager.clearCurrentUser();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
