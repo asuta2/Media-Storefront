@@ -78,7 +78,7 @@ public class mainController {
                                 HBox hBox = new HBox();
                                 hBox.setSpacing(mediaList.getWidth() / 3);
                                 hBox.getChildren().add(new Label(media.getMediaName()));
-                                hBox.getChildren().add(new Label(String.valueOf(media.getPrice())));
+                                hBox.getChildren().add(new Label(media.getPrice() + "$"));
                                 hBox.getChildren().add(new Label(media.getDescription()));
                                 setGraphic(hBox);
                             } else {
@@ -223,6 +223,7 @@ public class mainController {
                 }
                 usersManager.update(UsersManager.getCurrentUser());
                 cart.clear();
+                refreshList();
                 costLabel.setText("Current Cost: " + getTotalCost() + "$");
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Success");
