@@ -9,10 +9,7 @@ import ba.unsa.etf.rpr.mn.Users;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
@@ -89,8 +86,54 @@ public class adminController {
 
 
     public void addToDatabase(ActionEvent actionEvent) {
+        //When clicked, open a new window to add to database
     }
 
     public void deleteFromDatabase(ActionEvent actionEvent) {
+        //When clicked, get the selected item and delete it from database
+        //Check which list is currently displayed
+        if(mainWindow.centerProperty().getValue() instanceof ListView){
+            if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Users){
+                Users user=(Users) ((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem();
+                //Display confirmation alert
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Delete user");
+                alert.setContentText("Are you sure you want to delete user " + user.getUsername() + "?");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    usersManager.delete(user.getIdUsers());
+                    ((ListView) mainWindow.centerProperty().getValue()).getItems().remove(user);
+                }
+            }
+            else if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Purchases){
+                Purchases purchase=(Purchases) ((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem();
+                //Display confirmation alert
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Delete purchase");
+                alert.setContentText("Are you sure you want to delete purchase " + purchase.getPurchasesId() + "?");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    purchasesManager.delete(purchase.getPurchasesId());
+                    ((ListView) mainWindow.centerProperty().getValue()).getItems().remove(purchase);
+                }
+            }
+            else if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Media){
+                Media media=(Media) ((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem();
+                //Display confirmation alert
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Delete media");
+                alert.setContentText("Are you sure you want to delete media " + media.getMediaName() + "?");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    mediaManager.delete(media.getIdMedia());
+                    ((ListView) mainWindow.centerProperty().getValue()).getItems().remove(media);
+                }
+            }
+        }
+
+
     }
 }
