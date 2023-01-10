@@ -63,27 +63,41 @@ public class loginController {
                 UsernameField.getStyleClass().add("successCode");
                 PasswordField.getStyleClass().add("successCode");
                 UsersManager.setCurrentUser(usersManager.getUserByEmail(UsernameField.getText()));
-                try {
-                    Stage prim = (Stage) loginButton.getScene().getWindow();
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-                    Parent root = loader.load();
-                    mainController nv = loader.getController();
-                    nv.usernameButton.setText(UsersManager.getCurrentUser().getUsername());
-                    stage.setTitle("Media Library");
-                    stage.setScene(new Scene(root,700,500));
-                    stage.setMinHeight(700);
-                    stage.setMinWidth(500);
-                    stage.setResizable(true);
-                    setButtonUniformSize(nv.orderByBox,false);
-                    setButtonUniformSize(nv.usernameButton,false);
-                    setButtonUniformSize(nv.addFundsButton,false);
-                    nv.usernameButton.setWrapText(false);
+                if(UsersManager.getCurrentUser().getPrivilegeLevel().equals("admin")){
+                    try {
+                        Stage prim = (Stage) loginButton.getScene().getWindow();
+                        Stage stage=new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/fxml/admin.fxml"));
+                        stage.setTitle("Admin");
+                        stage.setScene(new Scene(root, 600, 400));
+                        stage.show();
+                        prim.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        Stage prim = (Stage) loginButton.getScene().getWindow();
+                        Stage stage = new Stage();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+                        Parent root = loader.load();
+                        mainController nv = loader.getController();
+                        nv.usernameButton.setText(UsersManager.getCurrentUser().getUsername());
+                        stage.setTitle("Media Library");
+                        stage.setScene(new Scene(root,700,500));
+                        stage.setMinHeight(700);
+                        stage.setMinWidth(500);
+                        stage.setResizable(true);
+                        setButtonUniformSize(nv.orderByBox,false);
+                        setButtonUniformSize(nv.usernameButton,false);
+                        setButtonUniformSize(nv.addFundsButton,false);
+                        nv.usernameButton.setWrapText(false);
 
-                    stage.show();
-                    prim.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        stage.show();
+                        prim.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             } else {
                 System.out.println("Neispravni podaci!" + UsernameField.getText() + " " + PasswordField.getText());
