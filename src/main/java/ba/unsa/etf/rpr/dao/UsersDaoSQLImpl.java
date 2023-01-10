@@ -100,4 +100,9 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
         return update(temp);
     }
 
+    @Override
+    public Users getUserById(int id) {
+        return executeQueryUnique("SELECT * FROM Users WHERE idUsers = ?", new Object[]{id});
+    }
+
 }

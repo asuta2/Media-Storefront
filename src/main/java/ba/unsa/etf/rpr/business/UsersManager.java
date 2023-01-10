@@ -54,4 +54,7 @@ public class UsersManager {
     public Users editProfile(Users temp){
         return DaoFactory.getUsersDao().editProfile(temp);
     }
+    public Users getUserById(int id){
+        return DaoFactory.getUsersDao().getUserById(id);
+    }
 }

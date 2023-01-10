@@ -9,4 +9,5 @@ public interface UsersDao extends dao<Users>{
     Users getUserByEmail(String username);
     Users getUserByUsername(String username);
     Users editProfile(Users temp);
+    Users getUserById(int id);
 }
