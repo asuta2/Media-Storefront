@@ -34,7 +34,7 @@
     -fx-font-weight: bold;
     -fx-background-insets: 0,0,0,0,0;
 }
-.text-field{
+.text-field, #comboBoxPrivilege, #comboBoxPrivilege >.list-cell, #comboBoxPrivilege >.list-view >.list-cell{
     -fx-background-color: #32353C;
     -fx-text-fill: white;
     -fx-font-family: 'Roboto', sans-serif;
