@@ -3,6 +3,9 @@ package ba.unsa.etf.rpr.mn;
 import java.io.Serializable;
 
 public class Users implements Serializable {
+    /**
+     * Users class is used to store information about users.
+     */
     private int idUsers;
 
     private String username;

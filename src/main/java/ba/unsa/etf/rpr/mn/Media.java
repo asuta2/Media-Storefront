@@ -3,6 +3,9 @@ package ba.unsa.etf.rpr.mn;
 import java.io.Serializable;
 
 public class Media implements Serializable {
+    /**
+     * Media class is used to store information about media.
+     */
     private int idMedia;
     private String mediaName;
     private String mediaCreator;

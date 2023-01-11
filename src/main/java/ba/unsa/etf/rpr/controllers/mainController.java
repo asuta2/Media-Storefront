@@ -23,6 +23,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class mainController {
+    /**
+     * This is the main controller for the application. It is responsible for the main window and all of its components.
+     * It is also responsible for the communication between the other controllers and the main window.
+     */
 
     public Button myLibraryButton;
     public Button addFundsButton;

@@ -3,6 +3,9 @@ package ba.unsa.etf.rpr.mn;
 import java.io.Serializable;
 
 public class Types implements Serializable {
+    /**
+     * Types class is used to store information about types of media.
+     */
     private int idTypes;
     private String typeName;
 

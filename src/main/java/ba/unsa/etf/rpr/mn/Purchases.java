@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Purchases implements Serializable {
+    /**
+     * Purchases class is used to store information about purchases.
+     */
     private int purchasesId;
     private int userId;
     private int mediaId;
