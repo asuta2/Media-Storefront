@@ -91,8 +91,8 @@ public abstract class AbstractDao<T> implements dao<T>{
             throw new RuntimeException(e);
         }
     }
-    public void delete(int id){
-        String upit = "DELETE FROM " + tableName + " WHERE id = ?";
+    public void delete(int id,String columnName){
+        String upit = "DELETE FROM " + tableName + " WHERE "+columnName +" = ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             stmt.setInt(1, id);

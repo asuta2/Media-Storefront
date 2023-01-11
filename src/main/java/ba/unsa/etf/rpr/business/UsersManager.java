@@ -16,8 +16,8 @@ public class UsersManager {
         UsersManager.currentUser = currentUser;
     }
 
-    public void delete(int id){
-        DaoFactory.getUsersDao().delete(id);
+    public void delete(int id,String columnName){
+        DaoFactory.getUsersDao().delete(id,columnName);
     }
     public Users add(Users user){
         return DaoFactory.getUsersDao().add(user);

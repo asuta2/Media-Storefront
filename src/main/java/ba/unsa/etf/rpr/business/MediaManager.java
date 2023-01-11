@@ -15,8 +15,8 @@ public class MediaManager {
     public void update(Media media) {
         DaoFactory.getMediaDao().update(media);
     }
-    public void delete(int id) {
-        DaoFactory.getMediaDao().delete(id);
+    public void delete(int id,String columnName) {
+        DaoFactory.getMediaDao().delete(id,columnName);
     }
     public Media getById(int id) {
         return DaoFactory.getMediaDao().getById(id);

@@ -21,8 +21,8 @@ public class PurchasesManager {
     public Purchases update(Purchases purchase) {
         return DaoFactory.getPurchasesDao().update(purchase);
     }
-    public void delete(int id) {
-        DaoFactory.getPurchasesDao().delete(id);
+    public void delete(int id,String columnName) {
+        DaoFactory.getPurchasesDao().delete(id,columnName);
     }
 
 
