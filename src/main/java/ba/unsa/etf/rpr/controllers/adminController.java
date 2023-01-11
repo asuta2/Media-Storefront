@@ -93,12 +93,12 @@ public class adminController {
 
 
     public void addToDatabase(ActionEvent actionEvent) {
+        Stage stage = new Stage();
         if(mainWindow.centerProperty().getValue() instanceof ListView){
             if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Users){
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addUser.fxml"));
                     Parent root = loader.load();
-                    Stage stage = new Stage();
                     stage.setTitle("Add user");
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -110,7 +110,6 @@ public class adminController {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addPurchase.fxml"));
                     Parent root = loader.load();
-                    Stage stage = new Stage();
                     stage.setTitle("Add purchase");
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -122,7 +121,6 @@ public class adminController {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addMedia.fxml"));
                     Parent root = loader.load();
-                    Stage stage = new Stage();
                     stage.setTitle("Add media");
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -131,6 +129,19 @@ public class adminController {
                 }
             }
         }
+        stage.setOnCloseRequest(windowEvent -> {
+            if(mainWindow.centerProperty().getValue() instanceof ListView){
+                if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Users){
+                    showAllUsers(null);
+                }
+                else if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Purchases){
+                    showAllPurchases(null);
+                }
+                else if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Media){
+                    showAllMedia(null);
+                }
+            }
+        });
 
 
 
