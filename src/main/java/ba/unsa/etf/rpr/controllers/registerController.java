@@ -1,8 +1,6 @@
 package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.UsersManager;
-import ba.unsa.etf.rpr.dao.UsersDao;
-import ba.unsa.etf.rpr.dao.UsersDaoSQLImpl;
 import ba.unsa.etf.rpr.mn.Users;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -16,6 +14,10 @@ import javafx.stage.Stage;
 import java.util.regex.Pattern;
 
 public class registerController {
+    /**
+     * registerController class is used to control the registration.fxml file. It is used to register new users.
+     */
+
     public TextField usernameField;
     public PasswordField pass;
     public TextField emailField;
@@ -154,6 +156,29 @@ public class registerController {
             checker.getStyleClass().removeAll("errorCode");
             signupButton.setDisable(false);
         }
+        if(usernameField.getText().length() > 20){
+            usernameField.getStyleClass().removeAll("successCode");
+            usernameField.getStyleClass().add("errorCode");
+            errorLabel1.setText("Username is too long.");
+            signupButton.setDisable(true);
+        }
+        else if(usernameField.getText().trim().isEmpty()){
+            usernameField.getStyleClass().removeAll("successCode");
+            usernameField.getStyleClass().add("errorCode");
+            errorLabel1.setText("Username is empty.");
+            signupButton.setDisable(true);}
+        if(emailField.getText().length() > 50){
+            emailField.getStyleClass().removeAll("successCode");
+            emailField.getStyleClass().add("errorCode");
+            errorLabel2.setText("Email is too long.");
+            signupButton.setDisable(true);
+        }
+        else if(emailField.getText().trim().isEmpty()){
+            emailField.getStyleClass().removeAll("successCode");
+            emailField.getStyleClass().add("errorCode");
+            errorLabel2.setText("Email is empty.");
+            signupButton.setDisable(true);}
+
         if(usernameField.getStyleClass().contains("successCode") && pass.getStyleClass().contains("successCode") && emailField.getStyleClass().contains("successCode") && emailConfirmField.getStyleClass().contains("successCode") && checker.isSelected()){
             Users temp = new Users();
             temp.setEmail(emailField.getText());
