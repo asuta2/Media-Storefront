@@ -206,11 +206,20 @@ public class mainController {
     }
 
     public void checkoutPressed(ActionEvent actionEvent) {
+        if(cart.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("You have to add something to your cart first!");
+            alert.showAndWait();
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Confirmation");
         alert.setContentText("Are you sure you want to checkout?");
         alert.showAndWait();
+
         if(alert.getResult().getText().equals("OK")){
             if(UsersManager.getCurrentUser().getBalance()>=getTotalCost()){
                 UsersManager.getCurrentUser().setBalance(UsersManager.getCurrentUser().getBalance()-getTotalCost());
