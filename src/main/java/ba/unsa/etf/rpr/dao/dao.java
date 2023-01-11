@@ -6,6 +6,6 @@ public interface dao <T>{
     T getById(int id);
     T add(T item);
     T update(T item);
-    void delete(int id);
+    void delete(int id,String columnName);
     List<T> getAll();
 }
