@@ -84,7 +84,7 @@ public class loginController {
                         mainController nv = loader.getController();
                         nv.usernameButton.setText(UsersManager.getCurrentUser().getUsername());
                         stage.setTitle("Media Library");
-                        stage.setScene(new Scene(root,700,500));
+                        stage.setScene(new Scene(root));
                         stage.setMinHeight(700);
                         stage.setMinWidth(500);
                         stage.setResizable(true);
