@@ -20,15 +20,7 @@ public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
 
     @Override
     public Map<String, Object> object2row(Media object) {
-        Map<String, Object> row = new TreeMap<>();
-        row.put("idMedia", object.getIdMedia());
-        row.put("mediaName", object.getMediaName());
-        row.put("mediaCreator", object.getMediaCreator());
-        row.put("typeId", object.getTypeId());
-        row.put("Sales_pct", object.getSales_pct());
-        row.put("Price", object.getPrice());
-        row.put("Description", object.getDescription());
-        return row;
+        return Map.of("idMedia", object.getIdMedia(), "mediaName", object.getMediaName(), "Description", object.getDescription(), "Price", object.getPrice(), "typeId", object.getTypeId(), "Sales_pct", object.getSales_pct(), "mediaCreator", object.getMediaCreator());
     }
 
     @Override
@@ -89,6 +81,8 @@ public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
     public Media getMediaById(int id) {
         return executeQueryUnique("SELECT * FROM Media WHERE idMedia = ?", new Object[]{id});
     }
+
+
 
     private List<Media> getMedia(String upit) {
         List<Media> ispis = new ArrayList<>();
