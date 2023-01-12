@@ -78,7 +78,14 @@ public class addMediaController {
             alert.setTitle("Success");
             alert.setHeaderText("Success");
             alert.setContentText("Media added successfully!");
-
+            alert.showAndWait();
+            System.out.println("Media added successfully!");
+            //reset all fields
+            mediaNameField.setText("");
+            mediaCreatorField.setText("");
+            salesSlider.setValue(0);
+            priceField.setText("");
+            descriptionBox.setText("");
         }
     }
 }
