@@ -36,8 +36,8 @@ public class addMediaController {
         mediaTypeBox.getItems().addAll(map.values());
 
         priceField.textProperty().addListener((obs, oldText, newText) -> {
-            if (!newText.matches("\\d*")) {
-                priceField.setText(newText.replaceAll("[^\\d]", ""));
+            if (!newText.matches("/^(0|[1-9]\\d*)(\\.\\d+)?$/")) {
+                priceField.setText(newText.replaceAll("[^/^(0|[1-9]\\d*)(\\.\\d+)?$/]", ""));
             }
         });
         salesSlider.valueProperty().addListener((obs, oldText, newText) -> {
