@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:controller="ba.unsa.etf.rpr.controllers.addPurchaseController" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Add Purchases For Distinct User">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="50.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="userLabel" text="Choose User">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin></Label>
+      <ChoiceBox fx:id="userChoiceBox" prefWidth="150.0">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin></ChoiceBox>
+      <Label fx:id="mediaLabel" text="Choose Media">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin></Label>
+      <ChoiceBox fx:id="mediaChoiceBox" prefWidth="150.0">
+         <VBox.margin>
+            <Insets bottom="30.0" />
+         </VBox.margin></ChoiceBox>
+      <Button fx:id="commitButton" mnemonicParsing="false" onAction="#commitChanges" text="Commit Purchase">
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin></Button>
+   </children>
+</VBox>
