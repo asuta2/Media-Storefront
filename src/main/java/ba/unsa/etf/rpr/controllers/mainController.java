@@ -82,7 +82,7 @@ public class mainController {
                                 HBox hBox = new HBox();
                                 hBox.setSpacing(mediaList.getWidth() / 3);
                                 hBox.getChildren().add(new Label(media.getMediaName()));
-                                hBox.getChildren().add(new Label(media.getPrice() + "$"));
+                                hBox.getChildren().add(new Label(Math.round((media.getPrice()-media.getPrice()*media.getSales_pct()/100.00)*100)/100.00 + "$"));
                                 hBox.getChildren().add(new Label(media.getDescription()));
                                 setGraphic(hBox);
                             } else {
@@ -155,7 +155,7 @@ public class mainController {
     private Double getTotalCost() {
         Double totalCost = 0.0;
         for(Media m : cart){
-            totalCost+=m.getPrice();
+            totalCost+=Math.round((m.getPrice()-m.getPrice()*m.getSales_pct()/100.00)*100)/100.00;
         }
         return totalCost;
     }
