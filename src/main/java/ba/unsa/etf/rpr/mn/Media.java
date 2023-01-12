@@ -74,7 +74,7 @@ public class Media implements Serializable {
     }
     @Override
     public String toString() {
-        return mediaName + " " + Price;
+        return mediaName + " " + Math.round((Price-Price*Sales_pct/100.00)*100)/100.00 + " $";
     }
 
 
