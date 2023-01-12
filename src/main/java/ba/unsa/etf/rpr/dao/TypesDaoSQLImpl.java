@@ -16,13 +16,30 @@ public class TypesDaoSQLImpl extends AbstractDao<Types> implements TypesDao {
 
     @Override
     public Map<String, Object> object2row(Types object) {
-        return null;
+        return Map.of("idTypes", object.getIdTypes(), "typeName", object.getTypeName());
     }
 
     @Override
     public Types row2object(ResultSet rs) {
-        return null;
+        try{
+            Types temp=new Types();
+            temp.setIdTypes(rs.getInt(1));
+            temp.setTypeName(rs.getString(2));
+            return temp;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
+    @Override
+    public Types getTypeById(int id) {
+        return executeQueryUnique("SELECT * FROM Types WHERE idTypes = ?", new Object[]{id});
+    }
+
+    @Override
+    public int getIdByType(String type) {
+        return executeQueryUnique("SELECT * FROM Types WHERE typeName = ?", new Object[]{type}).getIdTypes();
+    }
 }
