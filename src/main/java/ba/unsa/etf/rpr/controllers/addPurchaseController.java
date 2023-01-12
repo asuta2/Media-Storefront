@@ -59,7 +59,7 @@ public class addPurchaseController {
         }
         else{
             List<Purchases> purchasesOfCurrentUser = purchasesManager.getAllPurchasesById(users.get(userChoiceBox.getSelectionModel().getSelectedIndex()).getIdUsers());
-            //check if the user has already purchased the media with streams
+            //check if the user has already purchased the media he wants to purchase
             for(Purchases p : purchasesOfCurrentUser){
                 if(p.getMediaId() == media.get(mediaChoiceBox.getSelectionModel().getSelectedIndex()).getIdMedia()){
                     //show error message
