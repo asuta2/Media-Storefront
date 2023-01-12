@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.controllers.addMediaController">
+   <children>
+      <Label text="ADD NEW MEDIA TO STORE">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <font>
+            <Font size="30.0" />
+         </font>
+         <padding>
+            <Insets bottom="20.0" left="35.0" top="50.0" />
+         </padding>
+      </Label>
+      <Label text="Media Name">
+         <padding>
+            <Insets bottom="10.0" left="35.0" />
+         </padding>
+      </Label>
+      <TextField fx:id="mediaNameField">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </TextField>
+      <Label text="Media Creator">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="mediaCreatorField">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </TextField>
+      <Label text="Media Type">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </Label>
+      <ChoiceBox fx:id="mediaTypeBox" prefWidth="150.0">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ChoiceBox>
+      <Label text="Sales Percentage">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </Label>
+      <Slider fx:id="salesSlider" showTickLabels="true" showTickMarks="true" snapToTicks="true">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </Slider>
+      <Label fx:id="slideValue" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #3e8e41;" visible="false">
+         <VBox.margin>
+            <Insets left="35.0" />
+         </VBox.margin>
+      </Label>
+      <Label text="Media Price (Maximum 120$)">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="priceField">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </TextField>
+      <Label text="Description Of Media (Max. 450 Chars.)">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </Label>
+      <TextArea fx:id="descriptionBox" prefHeight="171.0" prefWidth="372.0" wrapText="true">
+         <VBox.margin>
+            <Insets bottom="10.0" left="35.0" right="200.0" />
+         </VBox.margin>
+      </TextArea>
+      <Button fx:id="addMediaButton" mnemonicParsing="false" onAction="#addMediaToDatabase" prefHeight="43.0" prefWidth="180.0" text="Add Media">
+         <VBox.margin>
+            <Insets bottom="35.0" left="35.0" right="35.0" top="25.0" />
+         </VBox.margin>
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</VBox>
