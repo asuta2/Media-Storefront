@@ -112,7 +112,7 @@
       </CheckBox>
       <Button fx:id="signupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkRegistration" prefHeight="47.0" prefWidth="165.0" text="Sign Up">
          <VBox.margin>
-            <Insets left="25.0" top="35.0" />
+            <Insets left="35.0" top="35.0" />
          </VBox.margin>
          <cursor>
             <Cursor fx:constant="HAND" />
