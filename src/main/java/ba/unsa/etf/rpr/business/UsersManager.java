@@ -16,14 +16,14 @@ public class UsersManager {
         UsersManager.currentUser = currentUser;
     }
 
-    public void delete(int id,String columnName){
-        DaoFactory.getUsersDao().delete(id,columnName);
+    public void delete(int id){
+        DaoFactory.getUsersDao().delete(id,"idUsers");
     }
     public Users add(Users user){
         return DaoFactory.getUsersDao().add(user);
     }
     public Users update(Users user){
-        return DaoFactory.getUsersDao().update(user);
+        return DaoFactory.getUsersDao().update(user,"idUsers");
     }
     public Users getById(int id){
         return DaoFactory.getUsersDao().getById(id);

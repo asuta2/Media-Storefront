@@ -10,9 +10,9 @@ public class TypesManager {
         DaoFactory.getTypesDao().add(type);
     }
     public static void update(Types type) {
-        DaoFactory.getTypesDao().update(type);
+        DaoFactory.getTypesDao().update(type,"idTypes");
     }
-    public static void delete(int id,String columnName) {
+    public static void delete(int id) {
         DaoFactory.getTypesDao().delete(id,"idTypes");
     }
     public static Types getTypeById(int id) {

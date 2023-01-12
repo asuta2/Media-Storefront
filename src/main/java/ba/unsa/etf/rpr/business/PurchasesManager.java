@@ -19,10 +19,10 @@ public class PurchasesManager {
         return DaoFactory.getPurchasesDao().add(purchase);
     }
     public Purchases update(Purchases purchase) {
-        return DaoFactory.getPurchasesDao().update(purchase);
+        return DaoFactory.getPurchasesDao().update(purchase,"purchasesId");
     }
-    public void delete(int id,String columnName) {
-        DaoFactory.getPurchasesDao().delete(id,columnName);
+    public void delete(int id) {
+        DaoFactory.getPurchasesDao().delete(id,"purchasesId");
     }
 
 

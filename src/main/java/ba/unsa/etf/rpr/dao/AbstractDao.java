@@ -16,7 +16,9 @@ public abstract class AbstractDao<T> implements dao<T>{
             this.tableName = tableName;
             Properties p = new Properties();
             p.load(ClassLoader.getSystemResource("conn.properties").openStream());
+            Class.forName("com.mysql.cj.jdbc.Driver");
             this.conn = DriverManager.getConnection(p.getProperty("db_url"), p.getProperty("username"), p.getProperty("password"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,7 +70,7 @@ public abstract class AbstractDao<T> implements dao<T>{
             throw new RuntimeException(e);
         }
     }
-    public T update(T item){
+    public T update(T item, String idName){
         Map<String, Object> row = object2row(item);
         StringBuilder upitBuilder = new StringBuilder("UPDATE " + tableName + " SET ");
         for (String key : row.keySet()) {
@@ -76,7 +78,7 @@ public abstract class AbstractDao<T> implements dao<T>{
         }
         String upit = upitBuilder.toString();
         upit = upit.substring(0, upit.length() - 1);
-        upit += " WHERE id = ?";
+        upit += " WHERE "+ idName +" = ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             int i = 1;
@@ -84,9 +86,9 @@ public abstract class AbstractDao<T> implements dao<T>{
                 stmt.setObject(i, row.get(key));
                 i++;
             }
-            stmt.setObject(i, row.get("id" + tableName));
+            stmt.setObject(i, row.get(idName));
             stmt.executeUpdate();
-            return getById((int) row.get("id" + tableName));
+            return getById((int) row.get(idName));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

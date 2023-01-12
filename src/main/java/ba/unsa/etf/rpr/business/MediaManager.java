@@ -13,10 +13,10 @@ public class MediaManager {
         DaoFactory.getMediaDao().add(media);
     }
     public void update(Media media) {
-        DaoFactory.getMediaDao().update(media);
+        DaoFactory.getMediaDao().update(media,"idMedia");
     }
-    public void delete(int id,String columnName) {
-        DaoFactory.getMediaDao().delete(id,columnName);
+    public void delete(int id) {
+        DaoFactory.getMediaDao().delete(id,"idMedia");
     }
     public Media getById(int id) {
         return DaoFactory.getMediaDao().getById(id);
