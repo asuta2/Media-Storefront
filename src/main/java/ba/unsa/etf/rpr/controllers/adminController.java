@@ -31,6 +31,7 @@ public class adminController {
     public BorderPane mainWindow;
     public Button addButton;
     public Button deleteButton;
+    public Button editButton;
 
     @FXML
     public void initialize() {
@@ -38,6 +39,7 @@ public class adminController {
     }
 
     public void showAllUsers(ActionEvent actionEvent) {
+        editButton.setVisible(false);
         ListView<Users> usersList=new ListView<>(FXCollections.observableList(usersManager.getAll()));
         mainWindow.centerProperty().setValue(usersList);
         //When clicked, show all users in the list
@@ -46,6 +48,7 @@ public class adminController {
 
     public void showAllPurchases(ActionEvent actionEvent) {
         //When clicked, show all purchases in the list
+        editButton.setVisible(false);
         ListView<Purchases> purchasesList=new ListView<>(FXCollections.observableList(purchasesManager.getAll()));
         mainWindow.centerProperty().setValue(purchasesList);
         purchasesList.setCellFactory(new Callback<ListView<Purchases>, ListCell<Purchases>>() {
@@ -71,7 +74,7 @@ public class adminController {
         //When clicked, show all media in the list
         ListView<Media> mediaList=new ListView<>(FXCollections.observableList(mediaManager.getAll()));
         mainWindow.centerProperty().setValue(mediaList);
-        //Delete previous CellFactory of other type
+        editButton.setVisible(true);
         mediaList.setCellFactory(new Callback<ListView<Media>, ListCell<Media>>() {
             @Override
             public ListCell<Media> call(ListView<Media> mediaListView) {
@@ -142,15 +145,23 @@ public class adminController {
                 }
             }
         });
-
-
-
     }
 
     public void deleteFromDatabase(ActionEvent actionEvent) {
         //When clicked, get the selected item and delete it from database
         //Check which list is currently displayed
+        //If when button clicked nothing is selected, throw error
+
         if(mainWindow.centerProperty().getValue() instanceof ListView){
+            //Check if nothing is selected
+            if(((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No item selected");
+                alert.setContentText("Please select an item to delete");
+                alert.showAndWait();
+                return;
+            }
             if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Users){
                 Users user=(Users) ((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem();
                 //Display confirmation alert
@@ -160,7 +171,7 @@ public class adminController {
                 alert.setContentText("Are you sure you want to delete user " + user.getUsername() + "?");
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.OK) {
-                    usersManager.delete(user.getIdUsers(),"idUsers");
+                    usersManager.delete(user.getIdUsers());
                     ((ListView) mainWindow.centerProperty().getValue()).getItems().remove(user);
                 }
             }
@@ -173,7 +184,7 @@ public class adminController {
                 alert.setContentText("Are you sure you want to delete purchase " + purchase.getPurchasesId() + "?");
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.OK) {
-                    purchasesManager.delete(purchase.getPurchasesId(),"purchasesId");
+                    purchasesManager.delete(purchase.getPurchasesId());
                     ((ListView) mainWindow.centerProperty().getValue()).getItems().remove(purchase);
                 }
             }
@@ -186,7 +197,7 @@ public class adminController {
                 alert.setContentText("Are you sure you want to delete media " + media.getMediaName() + "?");
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.OK) {
-                    mediaManager.delete(media.getIdMedia(),"idMedia");
+                    mediaManager.delete(media.getIdMedia());
                     ((ListView) mainWindow.centerProperty().getValue()).getItems().remove(media);
                 }
             }
@@ -194,4 +205,36 @@ public class adminController {
 
 
     }
-}
+
+    public void editButtonClicked(ActionEvent actionEvent) {
+        if(mainWindow.centerProperty().getValue() instanceof ListView){
+            //Check if nothing is selected
+            if(((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No item selected");
+                alert.setContentText("Please select an item to edit");
+                alert.showAndWait();
+                return;
+            }
+        Stage stage = new Stage();
+        if(mainWindow.centerProperty().getValue() instanceof ListView){
+             if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Media){
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editMedia.fxml"));
+                    Parent root = loader.load();
+                    editMediaController controller = loader.getController();
+                    controller.setMedia((Media) ((ListView) mainWindow.centerProperty().getValue()).getSelectionModel().getSelectedItem());
+                    stage.setTitle("Edit media");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        stage.setOnCloseRequest(windowEvent -> {
+            showAllMedia(null);
+        });
+    }
+}}
