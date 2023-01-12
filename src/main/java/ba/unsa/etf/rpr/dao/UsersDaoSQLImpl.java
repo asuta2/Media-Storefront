@@ -18,23 +18,6 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
     public Map<String, Object> object2row(Users object) {
         return Map.of("username", object.getUsername(), "email", object.getEmail(), "password", object.getPassword(), "PrivilegeLevel", object.getPrivilegeLevel(), "Balance", object.getBalance());
     }
-    @Override
-    public Users update(Users object) {
-        String sql = "UPDATE Users SET username = ?, email = ?, password = ?, PrivilegeLevel = ?, Balance = ? WHERE idUsers = ?";
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement(sql);
-            stmt.setString(1, object.getUsername());
-            stmt.setString(2, object.getEmail());
-            stmt.setString(3, object.getPassword());
-            stmt.setString(4, object.getPrivilegeLevel());
-            stmt.setDouble(5, object.getBalance());
-            stmt.setInt(6, object.getIdUsers());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return object;
-    }
 
     @Override
     public Users row2object(ResultSet rs) {
@@ -97,7 +80,7 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public Users editProfile(Users temp) {
-        return update(temp);
+        return update(temp,"idUsers");
     }
 
     @Override
