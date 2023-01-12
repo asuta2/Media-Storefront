@@ -45,8 +45,8 @@ public class addMediaController {
             slideValue.setVisible(true);
         });
         descriptionBox.textProperty().addListener((obs, oldText, newText) -> {
-            if (newText.length() > 255) {
-                descriptionBox.setText(newText.substring(0, 255));
+            if (newText.length() > 450) {
+                descriptionBox.setText(newText.substring(0, 450));
             }
         });
     }
