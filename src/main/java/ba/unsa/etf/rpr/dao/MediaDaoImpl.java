@@ -81,9 +81,6 @@ public class MediaDaoImpl extends AbstractDao<Media> implements MediaDao{
     public Media getMediaById(int id) {
         return executeQueryUnique("SELECT * FROM Media WHERE idMedia = ?", new Object[]{id});
     }
-
-
-
     private List<Media> getMedia(String upit) {
         List<Media> ispis = new ArrayList<>();
         try{
