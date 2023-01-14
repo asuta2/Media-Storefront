@@ -2,9 +2,11 @@ package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.business.MediaManager;
 import ba.unsa.etf.rpr.business.PurchasesManager;
+import ba.unsa.etf.rpr.business.TypesManager;
 import ba.unsa.etf.rpr.business.UsersManager;
 import ba.unsa.etf.rpr.mn.Media;
 import ba.unsa.etf.rpr.mn.Purchases;
+import ba.unsa.etf.rpr.mn.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,9 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class mainController {
     /**
@@ -35,8 +35,9 @@ public class mainController {
     private final MediaManager mediaManager = new MediaManager();
     private final PurchasesManager purchasesManager = new PurchasesManager();
     private final UsersManager usersManager = new UsersManager();
+    private final TypesManager typesManager = new TypesManager();
+    public ChoiceBox orderByTypeBox;
     private List<Purchases> allPurchasesOfCurrentUser = new ArrayList<>();
-
     public Button addButton;
     public Button shoppingButton;
     public Label costLabel;
@@ -49,7 +50,16 @@ public class mainController {
     @FXML
     public void initialize() {
         try{
-            orderByBox.setItems(FXCollections.observableArrayList("On Sale", "Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A"));
+            List<Types> types = typesManager.getAll();
+            Map<Integer,String> map = new HashMap<>();
+            for(Types type : types){
+                map.put(type.getIdTypes(),type.getTypeName());
+            }
+            orderByTypeBox.setValue("All");
+            orderByTypeBox.getItems().addAll("All");
+            orderByTypeBox.getItems().addAll(map.values());
+            orderByBox.setValue("None");
+            orderByBox.setItems(FXCollections.observableArrayList("None","On Sale", "Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A"));
             refreshList();
             mediaList.getSelectionModel().selectedItemProperty().addListener((obs, oldMedia, newMedia) -> {
                 if (newMedia != null) {
@@ -58,6 +68,13 @@ public class mainController {
             });
             orderByBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n)->{
                 if(n!=null){
+                    orderByTypeChoice();
+                    orderByChoice();
+                }
+            });
+            orderByTypeBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n)->{
+                if(n!=null){
+                    orderByTypeChoice();
                     orderByChoice();
                 }
             });
@@ -66,6 +83,17 @@ public class mainController {
             e.printStackTrace();
         }
     }
+
+    private void orderByTypeChoice() {
+        //Show all media of a certain type that a user has not purchased with streams
+        if(orderByTypeBox.getSelectionModel().getSelectedItem().toString().equals("All")){
+            refreshList();
+        }else{
+            int id = typesManager.getIdByTypeName(orderByTypeBox.getSelectionModel().getSelectedItem().toString());
+            mediaList.setItems(FXCollections.observableArrayList(mediaManager.getAll().stream().filter(media -> media.getTypeId() == id && allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).toList()));
+        }
+    }
+
     private void refreshList() {
         try {
             //filter out media that the user already owns using streams
@@ -84,6 +112,7 @@ public class mainController {
                                 hBox.getChildren().add(new Label(media.getMediaName()));
                                 hBox.getChildren().add(new Label(Math.round((media.getPrice()-media.getPrice()*media.getSales_pct()/100.00)*100)/100.00 + "$"));
                                 hBox.getChildren().add(new Label(media.getDescription()));
+                                hBox.getChildren().add(new Label(media.getSales_pct() + "% off"));
                                 setGraphic(hBox);
                             } else {
                                 setText("");
@@ -188,23 +217,26 @@ public class mainController {
     public void orderByChoice() {
         if(orderByBox.getValue()!=null){
             //sort by price low to high
-            if(orderByBox.getValue().equals("Price: Low to High")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice)).toList()));
+            if(orderByBox.getValue().equals("None")){
+                mediaList.setItems(mediaList.getItems());
+            }
+            else if(orderByBox.getValue().equals("Price: Low to High")){
+                mediaList.setItems(FXCollections.observableList(mediaList.getItems().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice)).toList()));
             }
             //sort by price high to low
             else if(orderByBox.getValue().equals("Price: High to Low")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice).reversed()).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaList.getItems().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getPrice).reversed()).toList()));
             }
             //sort by name A to Z
             else if(orderByBox.getValue().equals("Name: A to Z")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName)).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaList.getItems().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName)).toList()));
             }
             //sort by name Z to A
             else if(orderByBox.getValue().equals("Name: Z to A")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName).reversed()).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaList.getItems().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).sorted(Comparator.comparing(Media::getMediaName).reversed()).toList()));
             //sort by sales
             }else if(orderByBox.getValue().equals("On Sale")){
-                mediaList.setItems(FXCollections.observableList(mediaManager.getAll().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).filter(media -> media.getSales_pct() > 0).toList()));
+                mediaList.setItems(FXCollections.observableList(mediaList.getItems().stream().filter(media -> allPurchasesOfCurrentUser.stream().noneMatch(purchases -> purchases.getMediaId() == media.getIdMedia())).filter(media -> media.getSales_pct() > 0).toList()));
             }
         }
     }
