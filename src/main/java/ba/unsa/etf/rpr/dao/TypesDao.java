@@ -3,5 +3,5 @@ import ba.unsa.etf.rpr.mn.Types;
 
 public interface TypesDao extends dao<Types>{
     Types getTypeById(int id);
-    int getIdByType(String type);
+    int getIdByTypeName(String type);
 }

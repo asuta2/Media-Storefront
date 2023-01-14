@@ -18,8 +18,8 @@ public class TypesManager {
     public static Types getTypeById(int id) {
         return DaoFactory.getTypesDao().getTypeById(id);
     }
-    public static int getIdByType(String type) {
-        return DaoFactory.getTypesDao().getIdByType(type);
+    public static int getIdByTypeName(String type) {
+        return DaoFactory.getTypesDao().getIdByTypeName(type);
     }
     public List<Types> getAll() {
         return DaoFactory.getTypesDao().getAll();

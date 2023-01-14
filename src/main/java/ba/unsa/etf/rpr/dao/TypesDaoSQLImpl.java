@@ -39,7 +39,7 @@ public class TypesDaoSQLImpl extends AbstractDao<Types> implements TypesDao {
     }
 
     @Override
-    public int getIdByType(String type) {
+    public int getIdByTypeName(String type) {
         return executeQueryUnique("SELECT * FROM Types WHERE typeName = ?", new Object[]{type}).getIdTypes();
     }
 }
