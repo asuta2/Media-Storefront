@@ -97,6 +97,7 @@ public class adminController {
 
     public void addToDatabase(ActionEvent actionEvent) {
         Stage stage = new Stage();
+        stage.setResizable(false);
         if(mainWindow.centerProperty().getValue() instanceof ListView){
             if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Users){
                 try {
@@ -218,6 +219,7 @@ public class adminController {
                 return;
             }
         Stage stage = new Stage();
+        stage.setResizable(false);
         if(mainWindow.centerProperty().getValue() instanceof ListView){
              if(((ListView) mainWindow.centerProperty().getValue()).getItems().get(0) instanceof Media){
                 try {
