@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+#mainWindow{
+    -fx-background-color: linear-gradient(to top, #1e1e2d 0%, #1b2838 100%);
+}
+.label{
+    -fx-text-fill: #c5cdd8;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Roboto', sans-serif;
+}
+.list-cell{
+    -fx-background-color: #32353C;
+    -fx-text-fill: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-resize: none;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+.choice-box{
+    -fx-background-color: #32353C;
+    -fx-text-fill: #c5cbd8;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-resize: none;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+.list-view .label{
+    -fx-text-fill: white;
+}
+.list-view .list-cell:selected{
+    -fx-background-color: #1B99FF;
+}
+.list-view .list-cell{
+    -fx-border-color: #868c99 ;
+}
+.choice-box .context-menu,.menu-button .context-menu{
+    -fx-background-color: linear-gradient(to top, #20242a 0%, #1b1e27 100%);
+    -fx-text-fill: #c5cbd8;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-resize: none;
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+}
+#usernameButton, #addFundsButton{
+    -fx-background-color: #32353C;
+    -fx-text-fill: #1B99FF;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-resize: none;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+#myLibraryButton, #addButton{
+    -fx-background-color: linear-gradient(to right, rgba(7,190,255,1) 0%, rgba(45,117,255,1) 100%);
+    -fx-text-align: center;
+    -fx-text-transform: uppercase;
+    -fx-padding: 15px 30px;
+    -fx-transition: 0.5s;
+    -fx-background-size: 200% auto;
+    -fx-color: white;
+    -fx-border-radius: 10px;
+    -fx-display: block;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+#shoppingButton{
+    -fx-background-color: linear-gradient(to right, rgba(7,190,255,1) 0%, rgba(45,117,255,1) 100%);
+    -fx-text-align: center;
+    -fx-text-transform: uppercase;
+    -fx-transition: 0.5s;
+    -fx-background-size: 200% auto;
+    -fx-color: white;
+    -fx-border-radius: 10px;
+    -fx-display: block;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.button:pressed:hover {
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+
+.button:hover {
+    -fx-background-color: rgba(45,117,225,0.7);
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.1;
+}
+#checkoutButton{
+    -fx-background-color: linear-gradient(to right, #7cb038 0%, #69a01f 50%, #588a1b 100%);
+    -fx-text-align: center;
+    -fx-text-transform: uppercase;
+    -fx-transition: 0.5s;
+    -fx-background-size: 200% auto;
+    -fx-color: #ccea2a;
+    -fx-border-radius: 10px;
+    -fx-display: block;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
