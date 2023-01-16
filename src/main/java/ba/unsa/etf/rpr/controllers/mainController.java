@@ -37,6 +37,8 @@ public class mainController {
     private final UsersManager usersManager = new UsersManager();
     private final TypesManager typesManager = new TypesManager();
     public ChoiceBox orderByTypeBox;
+    public HBox itembox;
+    public HBox hboxusername;
     private List<Purchases> allPurchasesOfCurrentUser = new ArrayList<>();
     public Button addButton;
     public Button shoppingButton;
@@ -78,7 +80,6 @@ public class mainController {
                     orderByChoice();
                 }
             });
-
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -182,7 +183,7 @@ public class mainController {
     }
 
     private Double getTotalCost() {
-        Double totalCost = 0.0;
+        double totalCost = 0.0;
         for(Media m : cart){
             totalCost+=Math.round((m.getPrice()-m.getPrice()*m.getSales_pct()/100.00)*100)/100.00;
         }

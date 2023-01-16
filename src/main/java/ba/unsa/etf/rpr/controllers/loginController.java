@@ -91,6 +91,8 @@ public class loginController {
                         setButtonUniformSize(nv.orderByBox,false);
                         setButtonUniformSize(nv.usernameButton,false);
                         setButtonUniformSize(nv.addFundsButton,false);
+                        setButtonUniformSize(nv.itembox,false);
+                        setButtonUniformSize(nv.hboxusername,false);
                         nv.usernameButton.setWrapText(false);
 
                         stage.show();
