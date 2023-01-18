@@ -12,6 +12,8 @@
     -fx-display: block;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.75) , 0,0,0,1 );
 }
 
 

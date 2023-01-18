@@ -10,6 +10,7 @@ import ba.unsa.etf.rpr.mn.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -29,7 +31,6 @@ public class mainController {
      */
 
     public Button myLibraryButton;
-    public Button addFundsButton;
     public ListView<Media> mediaList;
     public MenuButton usernameButton;
     private final MediaManager mediaManager = new MediaManager();
@@ -39,6 +40,7 @@ public class mainController {
     public ChoiceBox orderByTypeBox;
     public HBox itembox;
     public HBox hboxusername;
+    public Label fundsLabel;
     private List<Purchases> allPurchasesOfCurrentUser = new ArrayList<>();
     public Button addButton;
     public Button shoppingButton;
@@ -52,6 +54,7 @@ public class mainController {
     @FXML
     public void initialize() {
         try{
+            fundsLabel.setText("Balance: " + usersManager.getCurrentUser().getBalance() + " $");
             List<Types> types = typesManager.getAll();
             Map<Integer,String> map = new HashMap<>();
             for(Types type : types){
@@ -209,6 +212,12 @@ public class mainController {
             nv.welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
             stage.setTitle("Add Funds");
             stage.setScene(new Scene(root));
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    updateFunds();
+                }
+            });
             stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
@@ -270,6 +279,7 @@ public class mainController {
                 usersManager.update(UsersManager.getCurrentUser());
                 cart.clear();
                 refreshList();
+                updateFunds();
                 costLabel.setText("Current Cost: " + getTotalCost() + "$");
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Success");
@@ -285,6 +295,9 @@ public class mainController {
             }
         }
 
+    }
+    void updateFunds(){
+        fundsLabel.setText("Balance: " + UsersManager.getCurrentUser().getBalance() + "$");
     }
 
     public void editProfileOpen(ActionEvent actionEvent) {

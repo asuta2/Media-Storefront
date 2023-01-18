@@ -60,16 +60,18 @@
                </padding></HBox>
             <HBox fx:id="hboxusername" alignment="TOP_RIGHT" prefHeight="72.0" prefWidth="450.0" ButtonBar.buttonData="RIGHT">
                <children>
-                  <Button fx:id="addFundsButton" minHeight="20.0" minWidth="0.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#addFunds" prefHeight="37.0" prefWidth="40.0" text="+">
+                  <Label fx:id="fundsLabel" prefHeight="37.0" text="Balance:">
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </Label>
                 <MenuButton fx:id="usernameButton" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="37.0" text="Username">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#editProfileOpen" text="Edit Profile" />
+                        <MenuItem mnemonicParsing="false" onAction="#addFunds" text="VIew my Wallet" />
                         <MenuItem mnemonicParsing="false" onAction="#logOutButton" text="Log Out" />
                      </items>
                      <HBox.margin>
@@ -128,7 +130,7 @@
             </Button>
             <Label fx:id="costLabel" text="Current Cost:  0.00$">
                <VBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
+                  <Insets right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
             <Button fx:id="checkoutButton" alignment="CENTER" mnemonicParsing="false" onAction="#checkoutPressed" prefHeight="47.0" prefWidth="146.0" text="Checkout">
