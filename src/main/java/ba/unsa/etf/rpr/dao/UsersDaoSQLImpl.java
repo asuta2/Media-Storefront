@@ -16,7 +16,7 @@ public class UsersDaoSQLImpl extends AbstractDao<Users> implements UsersDao {
 
     @Override
     public Map<String, Object> object2row(Users object) {
-        return Map.of("username", object.getUsername(), "email", object.getEmail(), "password", object.getPassword(), "PrivilegeLevel", object.getPrivilegeLevel(), "Balance", object.getBalance());
+        return Map.of("idUsers", object.getIdUsers(),"username", object.getUsername(), "email", object.getEmail(), "password", object.getPassword(), "PrivilegeLevel", object.getPrivilegeLevel(), "Balance", object.getBalance());
     }
 
     @Override
