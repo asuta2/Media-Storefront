@@ -69,6 +69,14 @@ public class editMediaController {
             alert.showAndWait();
             return;
         }
+        if(Double.parseDouble(priceField.getText())>120){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Price can't be higher than 120$!");
+            alert.showAndWait();
+            return;
+        }
         Media media = new Media();
         media.setIdMedia(CurrentMediaId);
         media.setMediaName(mediaNameField.getText());
@@ -83,12 +91,5 @@ public class editMediaController {
         alert.setHeaderText("Success");
         alert.setContentText("Media edited successfully!");
         alert.showAndWait();
-        //Reset fields
-        mediaNameField.setText("");
-        mediaCreatorField.setText("");
-        salesSlider.setValue(0);
-        mediaTypeBox.setValue(null);
-        priceField.setText("");
-        descriptionBox.setText("");
     }
 }
