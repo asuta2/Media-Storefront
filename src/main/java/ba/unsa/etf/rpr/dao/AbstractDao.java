@@ -71,24 +71,27 @@ public abstract class AbstractDao<T> implements dao<T>{
         }
     }
     public T update(T item, String idName){
+        //update table every column except the one that is called by idName
         Map<String, Object> row = object2row(item);
         StringBuilder upitBuilder = new StringBuilder("UPDATE " + tableName + " SET ");
         for (String key : row.keySet()) {
-            upitBuilder.append(key).append("=?,");
+            if(!key.equals(idName)) upitBuilder.append(key).append(" = ?,");
         }
         String upit = upitBuilder.toString();
         upit = upit.substring(0, upit.length() - 1);
-        upit += " WHERE "+ idName +" = ?";
+        upit += " WHERE " + idName + " = ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(upit);
             int i = 1;
             for (String key : row.keySet()) {
-                stmt.setObject(i, row.get(key));
-                i++;
+                if(!key.equals(idName)) {
+                    stmt.setObject(i, row.get(key));
+                    i++;
+                }
             }
             stmt.setObject(i, row.get(idName));
             stmt.executeUpdate();
-            return getById((int) row.get(idName));
+            return item;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
