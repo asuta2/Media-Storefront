@@ -98,4 +98,10 @@ Description: Searches for the User in the database and return all of the informa
   -v 
 ```
 Description: Prints current version of project
+## Running the tests
+To run the tests, do the following:
+```bash
+  mvn test
+```
+Disclaimer: When running the JavaFX tests, you may encounter a failed test due to the fact that you may have multiple windows open. This is not a problem with the code, but rather with the test itself. If you encounter this, simply close all other windows and run the test again.
 
