@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -51,14 +52,17 @@ public class loginControllerTest {
     @Test
     void testRegister(FxRobot robot){
         robot.clickOn("#RegisterBtn");
-        robot.lookup("#RegisterBtn").tryQuery().isPresent();
-        VBox registerWindow = robot.lookup("#mainWindow").queryAs(VBox.class);
-        assertNotNull(registerWindow);
-        Stage stage = (Stage) registerWindow.getScene().getWindow();
-        Platform.runLater(stage::close);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.lookup("#usernameField").tryQuery().isPresent();
+        TextField usernameField = robot.lookup("#usernameField").queryAs(TextField.class);
+        assertNotNull(usernameField);
     }
     @Test
-    void testMainWindowListSort(FxRobot robot){
+    void testMainWindowListSort(FxRobot robot) {
         robot.clickOn("#UsernameField");
         robot.write("test@test.com");
         robot.clickOn("#PasswordField");
@@ -88,6 +92,7 @@ public class loginControllerTest {
         List<Media> check = mediaManager.getMediaOnSale();
         //filter check so that only video games are left
         check.removeIf(media -> !(media.getTypeId() == 1));
+        //check if list is sorted correctly
         new Thread(() -> {
             for (int i = 0; i < mediaList.size(); i++) {
                 assertEquals(check.get(i).getMediaName(), mediaList.get(i).getMediaName());
