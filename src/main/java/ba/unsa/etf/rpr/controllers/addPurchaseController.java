@@ -25,6 +25,7 @@ public class addPurchaseController {
     public ChoiceBox mediaChoiceBox;
     public Button commitButton;
     public Label mediaLabel;
+    private Map<Integer, String> mediaMap;
     private final UsersManager usersManager= new UsersManager();
     private final MediaManager mediaManager = new MediaManager();
     private final PurchasesManager purchasesManager = new PurchasesManager();
@@ -38,13 +39,19 @@ public class addPurchaseController {
         }
         userChoiceBox.getItems().addAll(usersMap.values());
         userChoiceBox.getSelectionModel().selectFirst();
+        //Filter out media that the user has already purchased
         media = mediaManager.getAll();
-        Map<Integer, String> mediaMap = new HashMap<>();
+
+        mediaMap = new HashMap<>();
         for(Media m : media){
             mediaMap.put(m.getIdMedia(), m.getMediaName());
         }
         mediaChoiceBox.getItems().addAll(mediaMap.values());
         mediaChoiceBox.getSelectionModel().selectFirst();
+        //When the user changes, update the media choice box to show only media that the user has not purchased with streams
+        userChoiceBox.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> {
+            updateMediaChoiceBox();
+        });
     }
 
     public void commitChanges(ActionEvent actionEvent) {
@@ -77,11 +84,25 @@ public class addPurchaseController {
             temp.setMediaId(media.get(mediaChoiceBox.getSelectionModel().getSelectedIndex()).getIdMedia());
             temp.setBoughtDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
             purchasesManager.add(temp);
+            //update the media choice box
+            updateMediaChoiceBox();
+            //show success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText("Success");
             alert.setContentText("Purchase added successfully");
             alert.showAndWait();
         }
+    }
+    public void updateMediaChoiceBox(){
+        mediaChoiceBox.getItems().clear();
+        media = mediaManager.getAll();
+        media.removeIf(m -> purchasesManager.getAllPurchasesById(users.get(userChoiceBox.getSelectionModel().getSelectedIndex()).getIdUsers()).stream().anyMatch(p -> p.getMediaId() == m.getIdMedia()));
+        mediaMap.clear();
+        for(Media m : media){
+            mediaMap.put(m.getIdMedia(), m.getMediaName());
+        }
+        mediaChoiceBox.getItems().addAll(mediaMap.values());
+        mediaChoiceBox.getSelectionModel().selectFirst();
     }
 }
