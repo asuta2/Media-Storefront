@@ -46,6 +46,10 @@ For the CLI version, do the following:
 
 ## Command Line Parameters
 The following parameters can be used when running the program from the command line:
+```bash
+  -h
+```
+Description: Prints all available paramaters.
 
 ```bash
   -u value1 
