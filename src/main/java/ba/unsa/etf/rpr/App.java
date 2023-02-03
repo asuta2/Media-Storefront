@@ -29,6 +29,7 @@ public class App extends Application
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.getIcons().add(new javafx.scene.image.Image("/imgs/shopping-cart.png"));
         stage.show();
     }
 }

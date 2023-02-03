@@ -86,8 +86,9 @@ public class loginController {
                         stage.setTitle("Media Library");
                         stage.setScene(new Scene(root));
                         stage.setMinHeight(700);
-                        stage.setMinWidth(855);
+                        stage.setMinWidth(950);
                         stage.setResizable(true);
+                        stage.getIcons().add(new javafx.scene.image.Image("/imgs/shopping-cart.png"));
                         setButtonUniformSize(nv.orderByBox,false);
                         setButtonUniformSize(nv.usernameButton,false);
                         setButtonUniformSize(nv.fundsLabel,false);
@@ -121,6 +122,7 @@ public class loginController {
                 stage.setTitle("Registration");
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
+                stage.getIcons().add(new javafx.scene.image.Image("/imgs/shopping-cart.png"));
                 stage.show();
                 stage.setOnCloseRequest(e -> {
                     e.consume();

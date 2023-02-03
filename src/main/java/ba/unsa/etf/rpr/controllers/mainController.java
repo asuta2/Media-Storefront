@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -54,7 +55,7 @@ public class mainController {
     @FXML
     public void initialize() {
         try{
-            fundsLabel.setText("Balance: " + usersManager.getCurrentUser().getBalance() + " $");
+            fundsLabel.setText("Balance: " + UsersManager.getCurrentUser().getBalance() + " $");
             List<Types> types = typesManager.getAll();
             Map<Integer,String> map = new HashMap<>();
             for(Types type : types){
@@ -156,6 +157,7 @@ public class mainController {
                     };
                 }
             });
+            stage.getIcons().add(new Image("/imgs/folder.png"));
             stage.setTitle("Library");
             stage.setScene(new Scene(root));
             stage.show();
@@ -199,6 +201,7 @@ public class mainController {
         Parent root = loader.load();
         cartController nv = loader.getController();
         stage.setTitle("Your Shopping Cart");
+        stage.getIcons().add(new Image("/imgs/shopping-bag.png"));
         stage.setScene(new Scene(root));
         nv.itemView.setItems(cart);
         stage.show();
@@ -212,12 +215,8 @@ public class mainController {
             nv.welcome.setText("Welcome " + UsersManager.getCurrentUser().getUsername() + "! Your balance is " + UsersManager.getCurrentUser().getBalance() + "$");
             stage.setTitle("Add Funds");
             stage.setScene(new Scene(root));
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    updateFunds();
-                }
-            });
+            stage.getIcons().add(new Image("/imgs/piggy-bank.png"));
+            stage.setOnCloseRequest(windowEvent -> updateFunds());
             stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
@@ -308,6 +307,7 @@ public class mainController {
             stage.setTitle("Edit Profile");
             stage.setScene(new Scene(root));
             stage.setResizable(false);
+            stage.getIcons().add(new Image("/imgs/avatar.png"));
             stage.setOnCloseRequest(e->{
                 e.consume();
                 closeProgram(stage);
