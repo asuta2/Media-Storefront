@@ -1,7 +1,7 @@
 
 # Media Storefront
 
-This is a simple storefront application which consists of both a GUI and a CLi. It is designed to be a user accessible app in which a person can purchase different types of media be it Movies, Video Games or Books.
+This is a simple storefront application which consists of both a GUI and a CLI version. It is designed to be a user accessible app in which a person can purchase different types of media be it Movies, Video Games or Books.
 
 
 
@@ -92,7 +92,7 @@ Description: Lists all users from the database.
 ```bash
   -c -u value1 -p value2 
 ```
-Description: Changes the users password with the specified parameters. Paramater value1 reperesents the username, while value2 reperesents the new password.
+Description: Changes the users password with the specified parameters. Paramater value1 reperesents the username of the given user, while value2 reperesents the new password.
 
 ```bash
   -s value1 
@@ -101,7 +101,7 @@ Description: Searches for the User in the database and return all of the informa
 ```bash
   -v 
 ```
-Description: Prints current version of project
+Description: Prints current version of project.
 ## Running the tests
 To run the tests, do the following:
 ```bash
