@@ -85,7 +85,7 @@ public class adminController {
                         if (media != null) {
                             HBox hBox = new HBox();
                             hBox.setSpacing(10);
-                            hBox.getChildren().addAll(new Label(media.getMediaName()), new Label(media.getDescription()), new Label(media.getMediaCreator()), new Label(media.getPrice().toString()));
+                            hBox.getChildren().addAll(new Label(media.toString()));
                             setGraphic(hBox);
                         } else setGraphic(null);
                     }
